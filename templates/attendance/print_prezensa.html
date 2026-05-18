@@ -1,0 +1,21 @@
+<table>
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nu. Emis</th>
+            <th>Naran Kompletu</th>
+            <th>L/F</th>
+            <th>Asinatura (Tanda Tangan)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for estudante in lista_estudante %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ estudante.nu_emis }}</td>
+            <td>{{ estudante.naran_kompletu }}</td>
+            <td>{{ estudante.sexu|slice:":1" }}</td> <td>...........................</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

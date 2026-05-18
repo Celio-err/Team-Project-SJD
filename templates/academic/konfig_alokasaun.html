@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+        <div class="text-center md:text-left">
+            <h1 class="text-3xl font-black text-slate-800 tracking-tight leading-tight">
+                Kria Alokasaun Profesór
+            </h1>
+            <p class="text-slate-500 text-sm font-medium mt-1">Atribui matéria ba profesór tuir klase ne'ebé hili.</p>
+        </div>
+        <a href="{% url 'alokasaun_list' %}" class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            Fila ba Lista
+        </a>
+    </div>
+
+    <div class="bg-white rounded-[40px] shadow-2xl shadow-blue-900/10 border border-slate-100 overflow-hidden">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="p-8 md:p-12 space-y-10">
+                <!-- Row 1: Disiplina (Full Width) -->
+                <div class="space-y-4">
+                    <label class="flex items-center gap-2 text-[10px] font-black text-blue-600 uppercase tracking-widest ml-1">
+                        <i data-lucide="book-open" class="w-3 h-3"></i>
+                        Disiplina / Matéria
+                    </label>
+                    <div class="relative">
+                        <select name="disiplina" required class="w-full px-6 py-5 bg-slate-50 border-2 border-transparent rounded-[24px] font-extrabold text-slate-700 appearance-none focus:bg-white focus:border-blue-500 transition-all outline-none shadow-sm">
+                            <option value="" disabled {% if not d_val %}selected{% endif %}>-- Seleciona Disiplina --</option>
+                            {% for d in disiplinas %}
+                                <option value="{{ d.id }}" {% if d_val == d.id|stringformat:"s" %}selected{% endif %}>{{ d.naran_disiplina }} ({{ d.kodigu }})</option>
+                            {% endfor %}
+                        </select>
+                        <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                            <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Klase & Professor (Side by Side) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <label class="flex items-center gap-2 text-[10px] font-black text-blue-600 uppercase tracking-widest ml-1">
+                            <i data-lucide="layers" class="w-3 h-3"></i>
+                            Hili Klase / Turma
+                        </label>
+                        <div class="relative">
+                            <select name="klase" required class="w-full px-6 py-5 bg-slate-50 border-2 border-transparent rounded-[24px] font-extrabold text-slate-700 appearance-none focus:bg-white focus:border-blue-500 transition-all outline-none shadow-sm">
+                                <option value="" disabled {% if not k_val %}selected{% endif %}>-- Seleciona Klase --</option>
+                                {% for k in klases %}
+                                    <option value="{{ k.id }}" {% if k_val == k.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ k.nivel }} {{ k.departamentu }} - {{ k.turma }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="flex items-center gap-2 text-[10px] font-black text-blue-600 uppercase tracking-widest ml-1">
+                            <i data-lucide="user-check" class="w-3 h-3"></i>
+                            Profesór Responsável
+                        </label>
+                        <div class="relative">
+                            <select name="professor" required class="w-full px-6 py-5 bg-slate-50 border-2 border-transparent rounded-[24px] font-extrabold text-slate-700 appearance-none focus:bg-white focus:border-blue-500 transition-all outline-none shadow-sm">
+                                <option value="" disabled {% if not p_val %}selected{% endif %}>-- Seleciona Profesór --</option>
+                                {% for p in profesores %}
+                                    <option value="{{ p.id }}" {% if p_val == p.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ p.naran_kompletu }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-50/80 p-8 border-t border-slate-100 flex justify-end">
+                <button type="submit" class="group w-full md:w-auto px-12 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-[22px] text-xs font-black uppercase tracking-widest shadow-xl shadow-blue-500/20 transition-all active:scale-95 flex items-center justify-center gap-3">
+                    <i data-lucide="save" class="w-4 h-4"></i>
+                    Rai Alokasaun
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>lucide.createIcons();</script>
+{% endblock %}

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load attendance_extras %}
+
+{% block content %}
+<div class="no-print p-6 bg-slate-900 text-white rounded-3xl mb-10 shadow-2xl">
+    <div class="flex items-center gap-4 mb-4">
+        <div class="bg-indigo-500 p-2 rounded-xl text-2xl">📅</div>
+        <div>
+            <h3 class="font-black uppercase tracking-widest text-xs text-indigo-300">Konfigurasaun Data</h3>
+            <p class="text-sm text-slate-400">Prenxe data ezame nasionál iha ne'e.</p>
+        </div>
+    </div>
+
+    <form method="POST" class="flex flex-col md:flex-row gap-4 items-end">
+        {% csrf_token %}
+        <div class="flex-1 space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest ml-2">Data Ezame Nasionál</label>
+            <input type="text" 
+                    name="data_ezame" 
+                    value="{{ setting.data_ezame }}" 
+                    placeholder="Ex: 14 a 18 de Outubro de 2024"
+                    class="w-full bg-slate-800 border border-slate-700 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 font-bold">
+        </div>
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all">
+            💾 Atualiza Data
+        </button>
+    </form>
+</div>
+
+<div class="no-print p-6 bg-indigo-50 border-b border-indigo-100 flex justify-between items-center">
+    <span class="text-indigo-900 font-bold">Dokumentu Deklarasaun Finalista</span>
+    <button onclick="window.print()" class="px-6 py-2 bg-indigo-600 text-white font-bold rounded-xl shadow-lg hover:bg-indigo-700 transition-all">
+        🖨️ Imprime Agora
+    </button>
+</div>
+
+<div class="bg-white min-h-screen py-5 px-5">
+    <div id="printArea" class="max-w-[210mm] mx-auto bg-white text-black font-serif">
+        
+        <!-- Header Dokumen -->
+        <div class="flex justify-between items-center border-b-[3px] border-black pb-2 mb-6">
+            <img src="{% static 'img/logo_edu.png' %}" class="w-20 h-20 object-contain">
+            <div class="text-center flex-1 px-4">
+                <h1 class="text-lg font-bold uppercase leading-tight">Ministério da Educação</h1>
+                <h2 class="text-base font-bold uppercase leading-tight">Escola Secundária Geral Público 1912 Same Manufahi</h2>
+                <p class="text-[10px] italic mt-1">Nº : _______/ESG.1912/MF/______/{{ today|date:"Y"}}</p>
+            </div>
+            <img src="{% static 'img/Logo_ESGP.jpeg' %}" class="w-20 h-20 object-contain">
+        </div>
+
+        <div class="text-center mb-6">
+            <h3 class="text-xl font-bold underline uppercase tracking-widest">Declaração</h3>
+        </div>
+
+        <div class="text-justify leading-relaxed mb-6 text-sm">
+            <p class="indent-12 mb-3">
+                Eu, <span class="font-bold">{% if diretor %}{{ diretor.naran_kompletu }}{% else %}(Naran Diretor Seidauk Iha){% endif %}</span>, Diretor da Escola Secundária Geral Público 1912 Same Manufahi, declaro que o/a aluno/a: 
+                <span class="font-bold border-b border-black px-1">{{ estudante.naran_kompletu }}</span>, 
+                Especialidade em <span class="font-bold">{{ estudante.klase.departamentu }}</span> com o número de EMIS: <span class="font-bold underline">{{ estudante.nu_emis }}</span>.
+            </p>
+            
+            <p class="indent-12">
+    Este aluno/a concluiu o curso do Ensino Secundário Geral no exame nacional realizado aos dias 
+    <span class="font-bold">
+        {% if setting.data_ezame %}
+            {{ setting.data_ezame }}
+        {% else %}
+            ...........................................
+        {% endif %}
+    </span> 
+    com valores abaixo mencionados:
+</p>
+        </div>
+
+        <!-- Tabel Nilai -->
+        <table class="w-full border-collapse border-[1.5px] border-black text-xs mb-8">
+            <thead>
+                <tr class="bg-slate-50 uppercase font-bold">
+                    <th class="border-[1.5px] border-black p-2 w-10 text-center">Nº</th>
+                    <th class="border-[1.5px] border-black p-2 text-left">Disciplinas</th>
+                    <th class="border-[1.5px] border-black p-2 w-24 text-center">Valor</th>
+                    <th class="border-[1.5px] border-black p-2 text-center">Por Extenso</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for val in lista_valor %}
+                <tr>
+                    <td class="border border-black p-1.5 text-center">{{ forloop.counter }}</td>
+                    <td class="border border-black p-1.5 font-bold">{{ val.disiplina.naran_disiplina }}</td>
+                    <td class="border border-black p-1.5 text-center font-bold">{{ val.valor }}</td>
+                    <td class="border border-black p-1.5 italic">{{ val.valor|por_extenso }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot class="font-bold border-[1.5px] border-black bg-slate-50">
+                <tr>
+                    <td class="border border-black p-2 text-center">{{ lista_valor|length|add_one }}</td>
+                    <td class="border border-black p-2 uppercase tracking-[10px]">T o t a l</td>
+                    <td class="border border-black p-2 text-center">
+                        {{ total_valor }}/{{ total_valor|media_final:lista_valor }}
+                    </td>
+                    <td class="border border-black p-2">
+                        {{ total_valor|por_extenso }}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <!-- Bagian Tanda Tangan: Lebar ditingkatkan agar nama muat dalam satu baris -->
+        <div class="flex justify-end text-center mt-8">
+            <div class="w-[350px]"> <!-- Ukuran diperlebar dari 80 ke 350px -->
+                <p class="mb-1 text-sm">
+    Same, {{ today|date:"d" }} de {{ today|date:"F" }} de {{ today|date:"Y" }}
+</p>
+                <p class="font-bold text-sm">Diretor da Escola,</p>
+                <div class="h-24"></div> 
+                <!-- whitespace-nowrap memastikan teks tetap satu baris -->
+                <p class="font-bold underline text-sm whitespace-nowrap">
+                    ({{diretor.naran_kompletu}})
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @media print {
+        body * { visibility: hidden; }
+        #printArea, #printArea * { visibility: visible; }
+        
+        /* Menghilangkan sidebar, nav, dll dari base.html */
+        nav, aside, .sidebar, header, footer { display: none !important; }
+
+        #printArea {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 10mm !important;
+        }
+
+        @page {
+            size: auto;
+            margin: 5mm; 
+        }
+    }
+
+    .indent-12 {
+        text-indent: 40px;
+    }
+</style>
+{% endblock %}

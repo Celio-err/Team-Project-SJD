@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-20 text-center">
+    <div class="mb-8 flex justify-center">
+        <div class="w-24 h-24 bg-red-50 text-red-600 rounded-[2.5rem] flex items-center justify-center shadow-2xl shadow-red-100 animate-pulse">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+        </div>
+    </div>
+
+    <h2 class="text-4xl font-black text-slate-900 tracking-tight mb-4">Hamoos Dadus Professor?</h2>
+    <p class="text-slate-500 font-medium text-lg mb-2 px-10">
+        Ita hakarak hamoos dadus husi professor:
+    </p>
+    <div class="inline-block px-6 py-2 bg-red-50 rounded-full mb-10">
+        <span class="text-red-700 font-black text-xl">{{ professor.naran_kompletu }}</span>
+    </div>
+    
+    <p class="text-slate-400 text-sm mb-10 italic">
+        *Aksaun ne'e sei hamoos mós informasaun hotu ne'ebé relasiona ho professor ida ne'e.
+    </p>
+
+    <form method="POST" class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        {% csrf_token %}
+        
+        <a href="{% url 'professor_list' %}" 
+            class="w-full sm:w-auto px-10 py-4 bg-slate-100 text-slate-600 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-200 transition-all active:scale-95">
+            Kansela
+        </a>
+
+        <button type="submit" 
+            class="w-full sm:w-auto px-10 py-4 bg-red-600 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-red-700 shadow-2xl shadow-red-200 transition-all active:scale-95 flex items-center justify-center gap-2">
+            Sim, Hamoos Professor
+        </button>
+    </form>
+</div>
+{% endblock %}

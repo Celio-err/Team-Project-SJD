@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-20 text-center">
+    <div class="mb-8 flex justify-center">
+        <div class="w-24 h-24 bg-red-50 text-red-500 rounded-[2rem] flex items-center justify-center shadow-2xl shadow-red-100 animate-bounce">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+        </div>
+    </div>
+
+    <h2 class="text-3xl font-black text-slate-900 tracking-tight mb-4">Hamoos Disiplina?</h2>
+    <p class="text-slate-500 font-medium text-lg mb-10 px-10">
+        Ita boot hakarak duni hamoos disiplina <span class="text-red-600 font-black">"{{ disiplina.naran_disiplina }}"</span>? 
+    <form method="POST" class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        {% csrf_token %}
+        
+        <a href="{% url 'disiplina_list' %}" 
+            class="w-full sm:w-auto px-10 py-4 bg-slate-100 text-slate-600 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-200 transition-all active:scale-95">
+            Kansela
+        </a>
+
+        <button type="submit" 
+            class="w-full sm:w-auto px-10 py-4 bg-red-600 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-red-700 shadow-2xl shadow-red-200 transition-all active:scale-95 flex items-center justify-center gap-2">
+            Sim, Hamoos Agora
+        </button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="p-8">
+    <div class="flex items-center gap-4 mb-6">
+        <a href="{% url 'lista_klase_finalista' %}" class="p-2 bg-white border rounded-xl hover:bg-slate-50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor font-bold">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="15 19l-7-7 7-7" />
+            </svg>
+        </a>
+        <h2 class="text-3xl font-black text-slate-800 uppercase">Estudante <span class="text-indigo-600">{{ klase.nivel }} {{ klase.departamentu }} {{ klase.turma }}</span></h2>
+    </div>
+
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                    <th class="px-6 py-4 font-bold text-slate-700">Naran Kompletu</th>
+                    <th class="px-6 py-4 font-bold text-slate-700">No. EMIS</th>
+                    <th class="px-6 py-4 text-right">Aksaun</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                {% for e in estudantes %}
+                <tr class="hover:bg-indigo-50/30 transition-colors cursor-pointer" onclick="window.location='{% url 'input_valor_estudante' e.id %}'">
+                    <td class="px-6 py-4 font-semibold text-slate-900">{{ e.naran_kompletu }}</td>
+                    <td class="px-6 py-4 text-slate-500">{{ e.nu_emis }}</td>
+                    <td class="px-6 py-4 text-right">
+                        <span class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-xl uppercase tracking-wider">Input Valor</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

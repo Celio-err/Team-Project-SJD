@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="print-wrapper">
+    <div class="max-w-[100%] mx-auto relative" id="print-area">
+        
+        <div class="fixed bottom-8 right-8 no-print z-50">
+            <button onclick="window.print()" class="px-6 py-3 bg-slate-900 text-white text-xs font-bold rounded-full shadow-2xl hover:bg-black transition-all uppercase tracking-widest">
+                Print Lista Prezensa
+            </button>
+        </div>
+
+        <div class="mb-5">
+            <h2 class="text-xl font-bold text-center uppercase underline decoration-2 tracking-wide">Lista Prezensa Estudante</h2>
+            
+            <div class="mt-6 border border-black p-3 text-[11px] font-mono bg-white">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <p class="flex items-center"><span class="w-20">KLASE</span>: <span class="font-bold ml-1">{{ klase.nivel }} {{ klase.departamentu }}</span></p>
+                        <p class="flex items-center"><span class="w-20">TURMA</span>: <span class="font-bold ml-1">{{ klase.turma }}</span></p>
+                        <p class="flex items-baseline"><span class="w-20">MATERIA</span>: <span class="ml-1 flex-1 border-b border-dotted border-black"></span></p>
+                    </div>
+                    <div class="space-y-1 text-right">
+                        <p>FULAN : ...........................</p>
+                        <p>TINAN : ........</p>
+                        <p>TOTAL : {{ estudantes.count }} Estudante</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full">
+            <table class="w-full border-collapse border-black border-[1.5pt]">
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="col-no border border-black text-[9px] text-center font-bold px-1">NO</th>
+                        <th rowspan="2" class="border border-black text-[10px] px-2 text-left">NARAN KOMPLETU</th>
+                        <th colspan="14" class="border border-black text-[9px] py-1 text-center font-bold uppercase">DATA / LORON</th>
+                    </tr>
+                    <tr class="h-7">
+                        {% for i in "12345678901234"|make_list %}
+                        <th class="col-absen border border-black text-[9px] font-normal text-center"></th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in estudantes %}
+                    <tr class="h-9">
+                        <td class="border border-black text-center text-[10px]">{{ forloop.counter }}</td>
+                        <td class="border border-black px-2 text-[10px] uppercase font-semibold truncate">
+                            {{ e.naran_kompletu }}
+                        </td>
+                        {% for i in "12345678901234"|make_list %}
+                        <td class="border border-black"></td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-4 text-[9px] italic">
+            <span>NOTA: ( P ) Prezensa | ( L ) Lisensa | ( M ) Moras </span>
+        </div>
+
+        <div class="mt-12 flex justify-between text-[11px] font-medium">
+            <div class="text-center w-52">
+                <p>Visto Diretor,</p>
+                <div class="mt-20 border-b border-black w-full"></div>
+            </div>
+            <div class="text-center w-60">
+                <p>Manufahi, Loron ...... / ...... / 2026</p>
+                <p class="mt-1">Professor Responsavel,</p>
+                <div class="mt-16 border-b border-black w-full"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Menghilangkan Header & Footer Buka-Tutup Browser */
+    @page {
+        size: portrait;
+        margin: 0 !important;
+    }
+
+    @media print {
+        nav, footer, .no-print, header, .navbar, aside, #sidebar, .fixed { 
+            display: none !important; 
+        }
+
+        body { 
+            background: white !important; 
+            margin: 0; 
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .print-wrapper {
+            padding: 15mm 10mm !important;
+            width: 100%;
+        }
+
+        table { border: 1.2pt solid black !important; }
+        th, td { border: 0.5pt solid black !important; }
+    }
+
+    /* Logika Tabel Stabil */
+    table { 
+        width: 100%; 
+        border-spacing: 0;
+        table-layout: auto; 
+    }
+    
+    .col-no { 
+        width: 1%; 
+        white-space: nowrap;
+    }
+
+    .col-absen { 
+        width: 3.5%; 
+    }
+
+    th, td {
+        overflow: hidden;
+    }
+</style>
+{% endblock %}

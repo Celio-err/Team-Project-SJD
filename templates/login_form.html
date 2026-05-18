@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ESGP 1912</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc; /* Warna background lebih terang & bersih */
+        }
+        .login-card {
+            background: #ffffff;
+            border-top: 6px solid #1e293b;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+        .input-box {
+            transition: border-color 0.2s ease;
+        }
+        .input-box:focus-within {
+            border-color: #1e293b;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-[400px]">
+        
+        <!-- Login Card -->
+        <div class="login-card rounded-xl overflow-hidden">
+            
+            <!-- Header Section -->
+            <div class="p-8 pb-4">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h1 class="text-2xl font-black text-slate-900 tracking-tighter uppercase leading-none">Asesu Ba</h1>
+                        <p class="text-slate-400 text-[11px] font-bold mt-2 uppercase tracking-[0.2em]">Sistema Jestaun Dadus</p>
+                    </div>
+                    <!-- Logo Warna Asli & Tanpa Animasi -->
+                    <div class="w-16 h-16 flex items-center justify-center bg-slate-50 rounded-lg p-1 border border-slate-100">
+                        <img src="{% static 'img/Logo_ESGP.jpeg' %}" alt="Logo ESGP" class="w-full h-full object-contain">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pesan Django -->
+            {% if messages %}
+                <div class="px-8 mb-2">
+                    {% for message in messages %}
+                    <div class="p-4 rounded-lg text-xs font-bold flex items-center gap-3 border
+                        {% if message.tags == 'error' %} bg-red-50 text-red-700 border-red-100 {% else %} bg-slate-50 text-slate-700 border-slate-100 {% endif %}">
+                        <i data-lucide="alert-circle" class="w-4 h-4"></i>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Form -->
+            <form method="POST" class="p-8 pt-4 space-y-5">
+                {% csrf_token %}
+                
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Konta Utilizador</label>
+                    <div class="input-box flex items-center border-2 border-slate-100 rounded-lg px-4 bg-white">
+                        <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
+                        <input type="text" name="username" required autocomplete="off"
+                               class="w-full py-4 px-3 bg-transparent outline-none text-sm font-semibold text-slate-800 placeholder:text-slate-300" 
+                               placeholder="Username">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Liafuan Xave</label>
+                    <div class="input-box flex items-center border-2 border-slate-100 rounded-lg px-4 bg-white">
+                        <i data-lucide="key-round" class="w-4 h-4 text-slate-400"></i>
+                        <input type="password" name="password" required
+                               class="w-full py-4 px-3 bg-transparent outline-none text-sm font-semibold text-slate-800 placeholder:text-slate-300" 
+                               placeholder="••••••••">
+                    </div>
+                </div>
+
+                <button type="submit" 
+                        class="w-full mt-2 py-4 bg-[#1e293b] text-white text-[11px] font-black uppercase tracking-[0.2em] rounded-lg hover:bg-slate-800 transition-colors active:scale-[0.98] transform">
+                    Tama iha Sistema
+                </button>
+            </form>
+
+            <!-- Bottom Note -->
+            <div class="bg-slate-50 p-6 border-t border-slate-100">
+                <div class="flex items-center justify-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Servisu Administrasaun</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Info -->
+        <div class="mt-8 flex flex-col items-center space-y-2">
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">© 2026 ESGP 1912 Same</p>
+            <div class="h-[1px] w-8 bg-slate-300"></div>
+            <p class="text-[9px] text-slate-300 font-medium">Escola Secundária Geral 1912 Same Manufahi</p>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
