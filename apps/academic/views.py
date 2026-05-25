@@ -2,8 +2,8 @@ from urllib import request
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import models
-from academic.models import Disiplina, Klase, AlokasiMateria
-from users.models import Professor, Estudante
+from apps.academic.models import Disiplina, Klase, AlokasiMateria
+from apps.users.models import Professor, Estudante
 from django.contrib import messages
 
 # 1. View untuk membuat Disiplina Baru

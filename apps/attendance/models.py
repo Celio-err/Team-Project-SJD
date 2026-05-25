@@ -1,6 +1,6 @@
 from django.db import models
-from users.models import Estudante
-from academic.models import Disiplina
+from apps.users.models import Estudante
+from apps.academic.models import Disiplina
 
 class Prezensa(models.Model):
     STATUS_CHOICES = [

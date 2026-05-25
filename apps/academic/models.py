@@ -1,6 +1,6 @@
 from django.db import models
 
-from users.models import Professor
+from apps.users.models import Professor
 
 class Klase(models.Model):
     DEPARTAMENTU_CHOICES = [('CN', 'Ciencias Naturais'), ('CSH', 'Ciencias Sociais e Humanidades')]

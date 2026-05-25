@@ -18,10 +18,10 @@ from django.contrib import admin
 from django.urls import include, path
 
 from SJD import settings
-from academic import views
+from apps.academic import views
 from django.conf.urls.static import static
-from users import views
-from users.views import dashboard_view
+from apps.users import views
+from apps.users.views import dashboard_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),

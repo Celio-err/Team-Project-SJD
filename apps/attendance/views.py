@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from users.models import Estudante, Professor
-from academic.models import Disiplina, Klase
+from apps.users.models import Estudante, Professor
+from apps.academic.models import Disiplina, Klase
 from django.db.models import Q
 import datetime
 from .models import ValorFinalista
-from academic.models import Klase
+from apps.academic.models import Klase
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import ValorFinalista, DokumentuSetting

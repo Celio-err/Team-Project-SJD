@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Estudante, Professor
-from academic.models import Klase
+from apps.academic.models import Klase
 from django.core.paginator import Paginator
 from django.db.models import Q 
 from django.contrib.auth import authenticate, login, logout

@@ -3,7 +3,7 @@ from django.apps import AppConfig
 
 class AcademicConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'academic'
+    name = 'apps.academic'
 
     def ready(self):
         # HAPUS ATAU KOMENTAR BARIS DI BAWAH INI

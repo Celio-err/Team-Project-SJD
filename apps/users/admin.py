@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from users.models import Estudante, Professor
+from apps.users.models import Estudante, Professor
 
 # Register your models here.
 @admin.register(Estudante)

@@ -21,4 +21,4 @@ class AcademicConfig(AppConfig):
 
     def ready(self):
         # Tambahkan baris ini untuk mengimpor signals saat aplikasi siap
-        import academic.signals
+        import apps.academic.signals
