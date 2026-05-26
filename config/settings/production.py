@@ -1,5 +1,5 @@
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOST = ['*'] #PRENXE DOMAIN BA
