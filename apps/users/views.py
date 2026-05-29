@@ -6,7 +6,10 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import User
+from .forms import UserCreateForm
+from django.core.paginator import Paginator as DjangoPaginator
 
 
 def login_view(request):
@@ -279,5 +282,53 @@ def edit_professor(request, pk):
     return render(request, 'users/professor_form.html', {
         'professor': professor
     })
+
+def is_admin(user):
+    return user.is_superuser or user.is_staff
+
+@user_passes_test(is_admin)
+def user_list_view(request):
+    # 1. Jalankan query data user
+    user_query = User.objects.all().exclude(id=request.user.id).order_by('-id')
+
+    # 2. Ambil parameter halaman dari URL (?page=1)
+    page_number = request.GET.get('page')
+
+    # 3. Buat objek paginasi dengan nama variabel yang sangat jelas
+    sistema_paginator = DjangoPaginator(user_query, 10)
+    
+    # 4. Ambil data halaman spesifik
+    user_data = sistema_paginator.get_page(page_number)
+
+    # 5. Kirim data ke template
+    return render(request, 'users/admin_user/user_list.html', {
+        'user_data': user_data
+    })
+
+@user_passes_test(is_admin)
+def user_create_view(request):
+    if request.method == 'POST':
+        form = UserCreateForm(request.POST)
+        if form.is_valid():
+            user_obj = form.save()
+
+            professor_eskollidu = form.cleaned_data.get('professor')
+            if professor_eskollidu:
+                professor_eskollidu.user = user_obj
+                professor_eskollidu.save()
+
+            messages.success(request, "Konta foun Susesu kria ona!")
+            return redirect('user_list')
+    else:
+        form = UserCreateForm()
+    return render(request, 'users/admin_user/user_form.html', {'form': form, 'title': 'Kria konta Utilizador'})
+
+@user_passes_test(is_admin)
+def user_delete_view(request, pk):
+    user_obj = get_object_or_404(User, id=pk)
+    user_obj.delete()
+    messages.success(request, "Konta refere hamoos ona!")
+    return redirect('user_list')
+    
 
 

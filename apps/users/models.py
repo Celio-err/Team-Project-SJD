@@ -1,9 +1,10 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 class Professor(models.Model):
     STATUS_CHOICES = [('Permanente', 'Permanente'), ('Kontratadu', 'Kontratadu'), ('Voluntariu', 'Voluntariu')]
 
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='professor_profile')
     nis = models.CharField(max_length=20, unique=True, null=True, blank=True)  # NIS bisa null untuk sementara
     id_funcionario = models.CharField(max_length=20, unique=True, null=True, blank=True)  # ID bisa null untuk sementara
     naran_kompletu = models.CharField(max_length=255)

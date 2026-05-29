@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-10">
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+        <div>
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-2 h-8 bg-blue-600 rounded-full"></div>
+                <h1 class="text-3xl font-black text-slate-800 tracking-tight uppercase">Manejamentu Akun User</h1>
+            </div>
+            <p class="text-slate-500 text-sm font-medium ml-5">Kontrola no jere konta asesu sira ba profesór no koadru akademiku.</p>
+        </div>
+        
+        <a href="{% url 'user_create' %}" class="group flex items-center gap-3 bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold text-xs uppercase tracking-widest shadow-2xl shadow-slate-200 hover:bg-blue-600 transition-all active:scale-95">
+            <i data-lucide="user-plus" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
+            Kria Akun User Foun
+        </a>
+    </div>
+
+    <!-- Table Card -->
+    <div class="bg-white rounded-[40px] shadow-sm border border-slate-100 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-50/80">
+                        <th class="px-8 py-6 text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-100">Username</th>
+                        <th class="px-8 py-6 text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-100">Email Address</th>
+                        <th class="px-8 py-6 text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-100">Profesór Relasionadu</th>
+                        <th class="px-8 py-6 text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-100">Status Konta</th>
+                        <th class="px-8 py-6 text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-100 text-right">Asaun</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-50">
+                    {% for u in user_data %}
+                    <tr class="group hover:bg-blue-50/30 transition-all">
+                        <td class="px-8 py-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                    <i data-lucide="shield-user" class="w-5 h-5"></i>
+                                </div>
+                                <span class="font-black text-slate-700 text-sm tracking-tight">{{ u.username }}</span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6">
+                            <span class="text-sm font-bold text-slate-500">{{ u.email|default:"-" }}</span>
+                        </td>
+                        <td class="px-8 py-6">
+                            {% if u.professor_profile %}
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 bg-slate-200 rounded-full overflow-hidden border-2 border-white shadow-sm">
+                                    <img src="https://ui-avatars.com/api/?name={{ u.professor_profile.naran_kompletu }}&background=random" alt="">
+                                </div>
+                                <span class="font-bold text-slate-600 text-sm tracking-tight">{{ u.professor_profile.naran_kompletu }}</span>
+                            </div>
+                            {% else %}
+                            <span class="text-xs font-bold text-slate-300 italic">Seidauk ligadu ba profesór</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-8 py-6">
+                            {% if u.is_superuser %}
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-red-50 text-red-600 rounded-lg border border-red-100 text-[10px] font-black uppercase tracking-wider">
+                                Super Admin
+                            </span>
+                            {% elif u.is_staff %}
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-600 rounded-lg border border-amber-100 text-[10px] font-black uppercase tracking-wider">
+                                Staff
+                            </span>
+                            {% else %}
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-600 rounded-lg border border-emerald-100 text-[10px] font-black uppercase tracking-wider">
+                                Profesór
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-8 py-6 text-right">
+                            <div class="flex justify-end gap-3">
+                                <button onclick="confirmDelete('{% url 'user_delete' u.id %}')" 
+                                        class="p-2.5 bg-white border border-slate-200 text-red-500 rounded-xl hover:border-red-500 hover:bg-red-50 transition-all group" 
+                                        title="Hamoos Konta">
+                                    <i data-lucide="trash-2" class="w-4 h-4 transition-transform group-hover:scale-110"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="px-8 py-32 text-center">
+                            <div class="flex flex-col items-center">
+                                <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-200">
+                                    <i data-lucide="users" class="w-10 h-10"></i>
+                                </div>
+                                <h3 class="text-slate-400 font-black uppercase tracking-[0.2em] text-sm">Seidauk iha konta user</h3>
+                                <p class="text-slate-300 text-xs mt-2">Klik botun iha leten hodi kria kria konta foun ba user.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Navigasaun Paginasaun -->
+    {% if user_data.has_other_pages %}
+    <div class="mt-8 flex flex-col md:flex-row items-center justify-between gap-4 px-8 py-6 bg-white rounded-[30px] border border-slate-100 shadow-sm">
+        <div class="text-[10px] text-slate-400 font-black uppercase tracking-widest">
+            Hatudu <span class="text-blue-600">{{ user_data.start_index }}</span> 
+            to'o <span class="text-blue-600">{{ user_data.end_index }}</span> 
+            husi <span class="text-slate-800">{{ user_data.paginator.count }}</span> dadus
+        </div>
+
+        <nav class="flex items-center gap-2">
+            {% if user_data.has_previous %}
+                <a href="?page={{ user_data.previous_page_number }}" class="p-3 rounded-xl border border-slate-100 text-slate-400 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-100 transition-all active:scale-90">
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </a>
+            {% endif %}
+
+            <div class="flex items-center gap-1.5">
+                {% for num in user_data.paginator.page_range %}
+                    {% if user_data.number == num %}
+                        <span class="px-5 py-2.5 bg-blue-600 text-white text-xs font-black rounded-xl shadow-lg shadow-blue-500/20">
+                            {{ num }}
+                        </span>
+                    {% elif num > user_data.number|add:'-3' and num < user_data.number|add:'3' %}
+                        <a href="?page={{ num }}" class="px-5 py-2.5 text-xs font-black text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all">
+                            {{ num }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if user_data.has_next %}
+                <a href="?page={{ user_data.next_page_number }}" class="p-3 rounded-xl border border-slate-100 text-slate-400 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-100 transition-all active:scale-90">
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </a>
+            {% endif %}
+        </nav>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Scripts Integrasi (SweetAlert2 & Lucide) -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    lucide.createIcons();
+
+    function confirmDelete(url) {
+        Swal.fire({
+            title: 'Ita boot hakarak duni hamos?',
+            text: "Konta user ne'e sei lakon tiha ba nafatin husi sistema!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#64748b',
+            confirmButtonText: 'Sim, Hamos!',
+            cancelButtonText: 'Kansela',
+            background: '#ffffff',
+            borderRadius: '20px',
+            customClass: {
+                popup: 'rounded-3xl border border-slate-100 shadow-2xl',
+                confirmButton: 'rounded-xl px-6 py-3 font-bold uppercase text-xs tracking-widest',
+                cancelButton: 'rounded-xl px-6 py-3 font-bold uppercase text-xs tracking-widest'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Hamos hela...',
+                    timerProgressBar: true,
+                    didOpen: () => { Swal.showLoading(); }
+                });
+                window.location.href = url;
+            }
+        })
+    }
+</script>
+{% endblock %}
