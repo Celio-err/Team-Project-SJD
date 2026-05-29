@@ -10,4 +10,4 @@ class EstudanteAdmin(admin.ModelAdmin):
 
 @admin.register(Professor)
 class ProfessorAdmin(admin.ModelAdmin):
-    list_display = ('nis', 'id_funcionario', 'naran_kompletu', 'status', 'nu_telemovel')
+    list_display = ('nis', 'id_funcionario', 'naran_kompletu', 'status', 'nu_telemovel', 'cargo')

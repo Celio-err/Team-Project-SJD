@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from .forms import UserCreateForm
 from django.core.paginator import Paginator as DjangoPaginator
+from django.contrib.auth.models import Group
 
 
 def login_view(request):
@@ -198,28 +199,33 @@ def professor_create_view(request):
         nu_telemovel = request.POST.get('nu_telemovel')
         cargo = request.POST.get('cargo')
         
-        # Validasaun Duplikadu
+        # Konteks default untuk mengembalikan data input jika terjadi erru
+        context_error = {
+            'naran': naran,
+            'request': request 
+        }
+
+        # 1. Validasaun Unik Data Pribadi (Pastikan Anda mengisi data berbeda saat test!)
         if Professor.objects.filter(nis=nis).exists():
-            return render(request, 'users/professor_form.html', {
-                'error': f'NIS {nis} eziste ona!',
-                'naran': naran
-                })
+            context_error['error'] = f'Erru! NIS {nis} eziste ona iha sistema!'
+            return render(request, 'users/professor_form.html', context_error)
+            
         if Professor.objects.filter(id_funcionario=id_funcionario).exists():
-            return render(request, 'users/professor_form.html', {
-                'error': f'ID Funsionariu {id_funcionario} eziste ona!',
-                'naran': naran
-                })
+            context_error['error'] = f'Erru! ID Funsionariu {id_funcionario} eziste ona iha sistema!'
+            return render(request, 'users/professor_form.html', context_error)
+            
         if Professor.objects.filter(nu_telemovel=nu_telemovel).exists():
-            return render(request, 'users/professor_form.html', {
-                'error': f'Nu Telemovel {nu_telemovel} eziste ona!',
-                'naran': naran
-                })
-        if Professor.objects.filter(cargo=cargo).exists():
-            return render(request, 'users/professor_form.html', {
-                'error': f'Cargo {cargo} eziste ona!',
-                'naran': naran
-            })
+            context_error['error'] = f'Erru! Numeru Telemovel {nu_telemovel} eziste ona iha sistema!'
+            return render(request, 'users/professor_form.html', context_error)
         
+        #  2. VALIDASAUN KUNCI CARGO 
+        # Hanya mengunci jika yang dipilih adalah Direktur
+        if cargo == 'Diretor/a da Escola':
+            if Professor.objects.filter(cargo='Diretor/a da Escola').exists():
+                context_error['error'] = 'Erru! Kargu Diretor/a da Escola eziste ona. Eskola bele iha de\'it Diretór ida!'
+                return render(request, 'users/professor_form.html', context_error)
+        
+        # Passa Validasi -> Simpan ke Database
         Professor.objects.create(
             nis=nis,
             id_funcionario=id_funcionario,
@@ -271,10 +277,13 @@ def edit_professor(request, pk):
                 'error': f'Nu Telemovel {professor.nu_telemovel} eziste ona!',
                 'professor': professor
                 })
-        if Professor.objects.filter(cargo=professor.cargo).exclude(id=professor.id).exists():
-            return render(request, 'users/professor_form.html', {
-                'error': f'Cargo {professor.cargo} eziste ona!',
-            })
+        
+        if professor.cargo == 'Diretor/a da Escola':
+            if Professor.objects.filter(cargo='Diretor/a da Escola').exclude(id=professor.id).exists():
+                return render(request, 'users/professor_form.html', {
+                    'error': 'Erru! Kargu Diretor/a da Escola eziste ona. Eskola bele iha de\'it Diretór ida!',
+                    'professor': professor
+                })
 
         professor.save()
         return redirect('professor_list')
@@ -310,18 +319,53 @@ def user_create_view(request):
     if request.method == 'POST':
         form = UserCreateForm(request.POST)
         if form.is_valid():
-            user_obj = form.save()
+            # 1. Ambil data mentah dari form, JANGAN panggil form.save() dulu
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            profesor_terpilih = form.cleaned_data.get('professor')
+            
+            # 2. Buat objek User baru secara manual lewat memori (belum ke database)
+            user_obj = User(
+                username=username,
+                email=email,
+                is_superuser=False 
+            )
+            
+            # 3. Setel password secara aman (di-hash)
+            if password:
+                user_obj.set_password(password)
+            
+            # 4. Tentukan status is_staff berdasarkan cargo profesor
+            if profesor_terpilih:
+                if profesor_terpilih.cargo == 'Diretor/a da Escola':
+                    user_obj.is_staff = True
+                else:
+                    user_obj.is_staff = False
+            else:
+                user_obj.is_staff = False
 
-            professor_eskollidu = form.cleaned_data.get('professor')
-            if professor_eskollidu:
-                professor_eskollidu.user = user_obj
-                professor_eskollidu.save()
-
-            messages.success(request, "Konta foun Susesu kria ona!")
+            # 5. KUNCI TERAKHIR: Simpan objek user secara paksa ke database auth_user
+            user_obj.save() 
+            
+            # 6. Hubungkan dengan profil profesor jika ada
+            if profesor_terpilih:
+                profesor_terpilih.user = user_obj
+                profesor_terpilih.save()
+                
+                # Atur Grup Django
+                if profesor_terpilih.cargo == 'Diretor/a da Escola':
+                    group, created = Group.objects.get_or_create(name='Diretor')
+                    user_obj.groups.add(group)
+                else:
+                    group, created = Group.objects.get_or_create(name='Professor')
+                    user_obj.groups.add(group)
+                
+            messages.success(request, "Akun User foun kria ona ho susesu!")
             return redirect('user_list')
     else:
         form = UserCreateForm()
-    return render(request, 'users/admin_user/user_form.html', {'form': form, 'title': 'Kria konta Utilizador'})
+    return render(request, 'users/admin_user/user_form.html', {'form': form, 'title': 'Kria Akun User'})
 
 @user_passes_test(is_admin)
 def user_delete_view(request, pk):

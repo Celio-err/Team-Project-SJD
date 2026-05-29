@@ -56,21 +56,21 @@
                             <span class="text-xs font-bold text-slate-300 italic">Seidauk ligadu ba profesór</span>
                             {% endif %}
                         </td>
-                        <td class="px-8 py-6">
-                            {% if u.is_superuser %}
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-red-50 text-red-600 rounded-lg border border-red-100 text-[10px] font-black uppercase tracking-wider">
-                                Super Admin
-                            </span>
-                            {% elif u.is_staff %}
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-600 rounded-lg border border-amber-100 text-[10px] font-black uppercase tracking-wider">
-                                Staff
-                            </span>
-                            {% else %}
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-600 rounded-lg border border-emerald-100 text-[10px] font-black uppercase tracking-wider">
-                                Profesór
-                            </span>
-                            {% endif %}
-                        </td>
+                      <td class="px-6 py-4 whitespace-nowrap font-bold text-sm text-slate-700">
+    {% if u.professor_profile %}
+        {% if u.professor_profile.cargo == 'Diretor/a da Escola' %}
+            <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-black">Diretor/a da Escola</span>
+        {% else %}
+            <span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-black">Professor</span>
+        {% endif %}
+        
+    {% elif u.is_superuser %}
+        <span class="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-black">Superuser / Developer</span>
+        
+    {% else %}
+        <span class="px-3 py-1 bg-slate-50 text-slate-400 rounded-full text-xs font-medium">Konta Seidauk iha Kargu</span>
+    {% endif %}
+</td>
                         <td class="px-8 py-6 text-right">
                             <div class="flex justify-end gap-3">
                                 <button onclick="confirmDelete('{% url 'user_delete' u.id %}')" 

@@ -68,13 +68,13 @@
         <option value="Voluntariu" {% if professor.status == "Voluntariu" or request.POST.status == "Voluntariu" %}selected{% endif %}>Voluntariu</option>
     </select>
 </div>
-<div class="space-y-2">
-        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Cargo</label>
-        <input type="text" name="cargo" 
-            value="{% if professor %}{{ professor.cargo }}{% else %}{{ request.POST.cargo }}{% endif %}" 
-            placeholder="Ex: Diretor/a da Escola"
-            class="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all outline-none font-bold text-slate-700 placeholder:text-slate-300">
-    </div>
+<div class="space-y-4">
+    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Cargo</label>
+    <select name="cargo" class="w-full px-6 py-5 bg-slate-50 border-2 border-transparent rounded-[24px] font-extrabold text-slate-700 focus:bg-white focus:border-blue-500 transition-all outline-none shadow-sm cursor-pointer">
+        <option value="Professor" {% if professor.cargo == "Professor" or request.POST.cargo == "Professor" %}selected{% endif %}>Professor</option>
+        <option value="Diretor/a da Escola" {% if professor.cargo == "Diretor/a da Escola" or request.POST.cargo == "Diretor/a da Escola" %}selected{% endif %}>Diretor/a da Escola</option>
+    </select>
+</div>
 
                 <div class="space-y-2">
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Numeru Telemovel</label>
