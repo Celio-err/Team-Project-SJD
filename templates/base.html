@@ -1,156 +1,177 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tet">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Jestaun Dadus | ESGP 1912</title>
+    <title>Portal Ofisiál | ESGP 1912 Dom Boaventura</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #3b82f6; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: #fdfdfd; 
-            color: #1e293b;
+            background-color: #fafafa;
+            color: #0f172a;
         }
-        .sidebar-glass {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-right: 1px solid rgba(0,0,0,0.05);
+        .text-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
-            transition: all 0.3s;
-            color: #64748b;
-            font-weight: 600;
-            font-size: 13px;
-        }
-        .nav-link:hover {
-            background: rgba(59, 130, 246, 0.05);
-            color: var(--primary);
-        }
-        .nav-link.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
-        }
-        /* Transisi Sidebar Mobile */
-        #sidebar { transition: transform 0.3s ease-in-out; }
-        .sidebar-open { transform: translateX(0) !important; }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
 
-    <div id="sidebar-overlay" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+    <nav class="w-full bg-white/80 backdrop-blur-md border-b border-zinc-200/60 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <a href="#" class="flex items-center gap-3.5 group">
+                <div class="w-11 h-11 bg-zinc-50 rounded-xl overflow-hidden p-0.5 border border-zinc-200/80 transition-all group-hover:border-blue-600 group-hover:shadow-sm">
+                    <img src="{% static 'img/Logo_ESGP.jpeg' %}" alt="Logo ESGP" class="w-full h-full object-cover rounded-xl">
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-base text-zinc-900 tracking-tight leading-none">ESGP 1912</span>
+                    <span class="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mt-1.5">Same Manufahi</span>
+                </div>
+            </a>
 
-    <aside id="sidebar" class="fixed inset-y-0 left-0 w-72 sidebar-glass z-50 -translate-x-full lg:translate-x-0 flex flex-col shadow-xl lg:shadow-none">
-        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-white rounded-full p-1 shadow-sm border border-slate-100">
-                    <img src="{% static 'img/Logo_ESGP.jpeg' %}" alt="Logo" class="w-full h-full object-contain rounded-full">
-                </div>
-                <div>
-                    <h1 class="font-extrabold text-sm text-slate-900 leading-tight">ESGP 1912</h1>
-                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Dom Boaventura</p>
-                </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="text-xs font-bold uppercase tracking-wider text-zinc-900 transition-colors relative after:absolute after:bottom-[-29px] after:left-0 after:w-full after:h-[2px] after:bg-blue-600">Portal</a>
+                <a href="#" class="text-xs font-bold uppercase tracking-wider text-zinc-500 hover:text-zinc-900 transition-colors">Vizaun no Misaun</a>
+                <a href="#" class="text-xs font-bold uppercase tracking-wider text-zinc-500 hover:text-zinc-900 transition-colors">Informasaun Eskola</a>
+                <a href="#" class="text-xs font-bold uppercase tracking-wider text-zinc-500 hover:text-zinc-900 transition-colors">Kona-ba Eskola</a>
             </div>
-            <button class="lg:hidden text-slate-400" onclick="toggleSidebar()">
-                <i data-lucide="x" class="w-6 h-6"></i>
+
+            <div class="hidden md:flex items-center">
+                <a href="{% url 'login' %}" class="inline-flex items-center gap-2 bg-zinc-950 text-white px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-blue-600 transition-colors shadow-sm active:scale-95 duration-150">
+                    <i data-lucide="log-in" class="w-3.5 h-3.5"></i>
+                    Login Sistema
+                </a>
+            </div>
+
+            <button onclick="toggleMenu()" class="md:hidden p-2 text-zinc-600 hover:text-zinc-900 transition-colors">
+                <i id="mobile-icon" data-lucide="menu" class="w-5 h-5"></i>
             </button>
         </div>
 
-        <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] px-3 mt-4 mb-2">Menu Prinsipal</p>
-            
-            <a href="{% url 'dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
-                <i data-lucide="layout-grid" class="w-5 h-5"></i> Dashboard
-            </a>
-            <a href="{% url 'disiplina_list' %}" class="nav-link {% if request.resolver_match.url_name == 'disiplina_list' %}active{% endif %}">
-                <i data-lucide="book-open" class="w-5 h-5"></i> Disiplina
-            </a>
-            <a href="{% url 'list_klase' %}" class="nav-link {% if request.resolver_match.url_name == 'list_klase' %}active{% endif %}">
-                <i data-lucide="layers" class="w-5 h-5"></i> Klase
-            </a>
-            <a href="{% url 'professor_list' %}" class="nav-link {% if request.resolver_match.url_name == 'professor_list' %}active{% endif %}">
-                <i data-lucide="graduation-cap" class="w-5 h-5"></i> Professores
-            </a>
-            <a href="{% url 'alokasaun_list' %}" class="nav-link {% if request.resolver_match.url_name == 'alokasaun_list' %}active{% endif %}">
-                <i data-lucide="check-square" class="w-5 h-5"></i> Alokasaun
-            </a>
-            <a href="{% url 'estudante_list' %}" class="nav-link {% if request.resolver_match.url_name == 'estudante_list' %}active{% endif %}">
-                <i data-lucide="users" class="w-5 h-5"></i> Estudante
-            </a>
-
-            <div class="pt-6">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] px-3 mb-2">Relatoriu</p>
-                <a href="{% url 'lista_klase_finalista' %}" class="nav-link text-blue-600 bg-blue-50/50 border border-blue-100/50">
-                    <i data-lucide="file-text" class="w-5 h-5"></i> Finalista
+        <div id="mobile-nav" class="hidden md:hidden bg-white border-b border-zinc-200 px-6 py-6 space-y-4">
+            <a href="#" class="block text-xs font-bold uppercase tracking-wider text-zinc-900">Portal</a>
+            <a href="#" class="block text-xs font-bold uppercase tracking-wider text-zinc-500">Vizaun no Misaun</a>
+            <a href="#" class="block text-xs font-bold uppercase tracking-wider text-zinc-500">Informasaun Eskola</a>
+            <a href="#" class="block text-xs font-bold uppercase tracking-wider text-zinc-500">Kona-ba Eskola</a>
+            <div class="pt-4 border-t border-zinc-100">
+                <a href="{% url 'login' %}" class="flex items-center justify-center gap-2 bg-zinc-950 text-white py-3 rounded-xl text-xs font-bold tracking-wider uppercase w-full">
+                    <i data-lucide="log-in" class="w-4 h-4"></i> Login Sistema
                 </a>
             </div>
-            <div class="pt-6">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] px-3 mb-2">Manejamentu</p>
-                <a href="{% url 'user_list' %}" class="nav-link text-blue-600 bg-blue-50/50 border border-blue-100/50">
-                    <i data-lucide="users" class="w-5 h-5"></i> Manejamentu Utilizador
-                </a>
-            </div>
-        </nav>
-
-        <div class="p-4 border-t border-slate-100">
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="nav-link w-full text-red-500 hover:bg-red-50 border border-transparent hover:border-red-100">
-                    <i data-lucide="log-out" class="w-5 h-5"></i> Sai
-                </button>
-            </form>
         </div>
-    </aside>
+    </nav>
 
-    <header class="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-100 flex items-center justify-between px-6 z-40">
-        <button onclick="toggleSidebar()" class="p-2 -ml-2 text-slate-600">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-        <span class="font-bold text-slate-800 text-sm">ESGP 1912</span>
-        <div class="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center border border-blue-100">
-            <i data-lucide="user" class="w-5 h-5 text-blue-600"></i>
-        </div>
-    </header>
-
-    <main class="lg:ml-72 min-h-screen pt-20 lg:pt-0 transition-all">
-        <div class="p-6 lg:p-12 max-w-[1400px] mx-auto">
-            
-            {% if messages %}
-            <div class="mb-6 space-y-2">
-                {% for message in messages %}
-                <div class="p-4 rounded-2xl text-sm font-bold shadow-sm flex items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-300
-                    {% if message.tags == 'error' %} bg-red-50 text-red-600 border border-red-100 
-                    {% else %} bg-emerald-50 text-emerald-600 border border-emerald-100 {% endif %}">
-                    <span>{{ message }}</span>
+    <main class="flex-1 w-full">
+        
+        {% block content %}
+        
+        <section class="relative overflow-hidden py-20 lg:py-32 bg-white border-b border-zinc-200/50">
+            <div class="absolute inset-0 bg-[radial-gradient(#e4e4e7_1px,transparent_1px)] [background-size:24px_24px] opacity-40"></div>
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+                <div class="max-w-3xl flex flex-col items-start">
+                    <div class="inline-flex items-center gap-2 bg-zinc-100 border border-zinc-200/80 px-3.5 py-1.5 rounded-full mb-6">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+                        <span class="text-[10px] font-extrabold text-zinc-600 uppercase tracking-widest">Plataforma Dijitál Ofisiál</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-gradient leading-[1.1] mb-6">
+                        Eskola Secundária Geral Público 1912 Same
+                    </h1>
+                    <p class="text-zinc-500 font-medium text-base sm:text-lg leading-relaxed max-w-2xl mb-10">
+                        Bem-vindo ba portal integradu de jestaun akadómiku no informasaun ofisiál. Konstrui futuru edukasaun nian iha Munisípiu Manufahi ho transparánsia, inovasaun, no kualidade naroman.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3.5 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/10">
+                            Esplora Informasaun <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="inline-flex items-center gap-2 bg-zinc-50 text-zinc-900 border border-zinc-200 px-6 py-3.5 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-zinc-100 transition-colors">
+                            Kona-ba Eskola
+                        </a>
+                    </div>
                 </div>
-                {% endfor %}
             </div>
-            {% endif %}
+        </section>
 
-            {% block content %}{% endblock %}
-        </div>
+        <section class="py-20 max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-white border border-zinc-200/60 p-8 rounded-2xl shadow-sm hover:border-zinc-300 transition-all duration-200">
+                    <div class="w-10 h-10 bg-zinc-50 border border-zinc-200/80 rounded-xl flex items-center justify-center text-zinc-900 mb-6">
+                        <i data-lucide="compass" class="w-4 h-4"></i>
+                    </div>
+                    <h3 class="font-extrabold text-sm uppercase tracking-wider text-zinc-900 mb-3">Vizaun & Misaun</h3>
+                    <p class="text-zinc-500 text-xs font-medium leading-relaxed mb-6">
+                        Hateten lala'ek dezenvolvimentu koñesimentu, kualidade étika, no formasaun karakter estudante nian ba futuru Timor-Leste.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors uppercase tracking-wider">
+                        Lee Kompletu <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white border border-zinc-200/60 p-8 rounded-2xl shadow-sm hover:border-zinc-300 transition-all duration-200">
+                    <div class="w-10 h-10 bg-zinc-50 border border-zinc-200/80 rounded-xl flex items-center justify-center text-zinc-900 mb-6">
+                        <i data-lucide="bell" class="w-4 h-4"></i>
+                    </div>
+                    <h3 class="font-extrabold text-sm uppercase tracking-wider text-zinc-900 mb-3">Informasaun Ofisiál</h3>
+                    <p class="text-zinc-500 text-xs font-medium leading-relaxed mb-6">
+                        Asesu ba avizu foun, kalendáriu eskolár, prosetu sira, no dezenvolvimentu foun hotu-hotu ne'ebé akontese iha eskola laran.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors uppercase tracking-wider">
+                        Haree Avizu <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white border border-zinc-200/60 p-8 rounded-2xl shadow-sm hover:border-zinc-300 transition-all duration-200">
+                    <div class="w-10 h-10 bg-zinc-50 border border-zinc-200/80 rounded-xl flex items-center justify-center text-zinc-900 mb-6">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    </div>
+                    <h3 class="font-extrabold text-sm uppercase tracking-wider text-zinc-900 mb-3">Akesu Portaria</h3>
+                    <p class="text-zinc-500 text-xs font-medium leading-relaxed mb-6">
+                        Portal restritu ba koadru profesór, diresaun, no administradór sira hodi jere kualifikasaun, nota, no dadus estudante nian.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors uppercase tracking-wider">
+                        Konekta Sistema <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        {% endblock %}
     </main>
 
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+    <footer class="bg-white border-t border-zinc-200/80 py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+            <div class="flex flex-col">
+                <span class="text-zinc-900 font-extrabold text-sm uppercase tracking-wider">Escola Secundária Geral Público 1912 Same</span>
+                <span class="text-[11px] text-zinc-400 font-medium mt-1.5">&copy; 2026 Jestaun Akadómiku Internu. All Rights Reserved.</span>
+            </div>
+            <div class="flex items-center gap-6 text-[11px] text-zinc-400 font-bold uppercase tracking-widest">
+                <span>Rejionál: Dom Boaventura</span>
+                <span class="w-1 h-1 rounded-full bg-zinc-300"></span>
+                <span>Manufahi</span>
+            </div>
+        </div>
+    </footer>
 
-        // Toggle Function for Mobile
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-            
-            sidebar.classList.toggle('sidebar-open');
-            overlay.classList.toggle('hidden');
+    <script>
+        lucide.createIcons();
+        function toggleMenu() {
+            const nav = document.getElementById('mobile-nav');
+            const icon = document.getElementById('mobile-icon');
+            nav.classList.toggle('hidden');
+            if (nav.classList.contains('hidden')) {
+                icon.setAttribute('data-lucide', 'menu');
+            } else {
+                icon.setAttribute('data-lucide', 'x');
+            }
+            lucide.createIcons();
         }
     </script>
 </body>

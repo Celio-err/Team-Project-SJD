@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Administrasaun | ESGP 1912</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #f4f4f5; /* Zinc-100 */
+            color: #18181b;
+        }
+        .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+        .sidebar-scroll::-webkit-scrollbar-thumb { background: #e4e4e7; border-radius: 2px; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex overflow-x-hidden">
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-zinc-900/40 z-30 hidden lg:hidden transition-opacity duration-300"></div>
+
+    <aside id="mainSidebar" class="w-64 bg-white border-r border-zinc-200/80 flex flex-col fixed h-screen top-0 left-0 z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+        
+        <div class="h-20 px-6 border-b border-zinc-200/80 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-zinc-100 rounded-lg overflow-hidden p-0.5 border border-zinc-200">
+                    <img src="{% static 'img/Logo_ESGP.jpeg' %}" alt="Logo" class="w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-sm text-zinc-900 tracking-tight leading-none">ESGP 1912</span>
+                    <span class="text-[9px] text-blue-600 font-bold uppercase tracking-wider mt-0.5">Sistem Jestaun Dadus</span>
+                </div>
+            </div>
+            <button id="closeSidebarBtn" class="p-1 rounded-lg hover:bg-zinc-100 text-zinc-500 lg:hidden">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <div class="p-4 mx-4 my-4 bg-zinc-50 rounded-xl border border-zinc-200/60 flex items-center gap-3">
+            <div class="w-9 h-9 bg-zinc-200 text-zinc-700 rounded-lg flex items-center justify-center font-bold text-xs uppercase shadow-sm">
+                {{ user.username|slice:":2" }}
+            </div>
+            <div class="flex flex-col min-w-0">
+                <span class="font-bold text-xs text-zinc-900 truncate">{{ user.username }}</span>
+                <span class="text-[9px] text-zinc-400 font-semibold uppercase tracking-wider mt-0.5">
+                    {% if user.is_superuser %}Admin{% else %}Professor{% endif %}
+                </span>
+            </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto sidebar-scroll px-4 space-y-5">
+            
+            <div>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Prinsipal</p>
+                <div class="space-y-0.5">
+                    <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors {% if request.resolver_match.url_name == 'dashboard' %} bg-zinc-100 text-zinc-900 font-semibold {% endif %}">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 text-zinc-400"></i> Dashboard
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Dadus</p>
+                <div class="space-y-0.5">
+                    <a href="{% url 'disiplina_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
+                        <i data-lucide="book-open" class="w-4 h-4 text-zinc-400"></i> Disiplina
+                    </a>
+                    <a href="{% url 'lista_klase' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
+                        <i data-lucide="columns" class="w-4 h-4 text-zinc-400"></i> Klase
+                    </a>
+                    <a href="{% url 'lista_professor' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
+                        <i data-lucide="award" class="w-4 h-4 text-zinc-400"></i> Professores
+                    </a>
+                    <a href="{% url 'estudante_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
+                        <i data-lucide="users" class="w-4 h-4 text-zinc-400"></i> Estudante
+                    </a>
+                </div>
+            </div>
+
+            {% if user.is_superuser or user.professor_profile.cargo == 'Diretor/a da Escola' %}
+            <div>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Manejamentu</p>
+                <div class="space-y-0.5">
+                    
+                    <a href="{% url 'alokasaun_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
+                        <i data-lucide="git-pull-request" class="w-4 h-4 text-zinc-400"></i> Alokasaun
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
+            <div>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Relatoriu</p>
+                <div class="space-y-0.5">
+                    <a href="{% url 'lista_klase_finalista' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-colors">
+                        <i data-lucide="file-check" class="w-4 h-4 text-emerald-600"></i> Finalista
+                    </a>
+                </div>
+            </div>
+
+            {% if user.is_superuser %}
+            <div>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Konfigurasaun</p>
+                <div class="space-y-0.5">
+                    <a href="{% url 'user_list'%}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
+                        <i data-lucide="sliders" class="w-4 h-4 text-zinc-400"></i> Manejamentu Utilizador
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+
+        <div class="p-4 border-t border-zinc-200/80">
+            <form action="{% url 'logout'%}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-rose-600 hover:bg-rose-50 transition-colors">
+                    <i data-lucide="log-out" class="w-4 h-4 text-rose-500"></i>
+                    Sai 
+                </button>
+            </form>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col pl-0 lg:pl-64 min-h-screen">
+        
+        <header class="h-20 bg-white border-b border-zinc-200/80 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30">
+            <div class="flex items-center gap-3">
+                <button id="openSidebarBtn" class="p-2 -ml-2 rounded-lg hover:bg-zinc-100 text-zinc-600 lg:hidden">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+                <span class="text-xs font-bold text-zinc-400 uppercase tracking-wide hidden sm:inline">Sistema Jestaun Dadus</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="text-right">
+                    <p class="text-xs font-bold text-zinc-800">{{ user.username }}</p>
+                    <p class="text-[10px] font-medium text-zinc-400">ESGP Oficial User</p>
+                </div>
+            </div>
+        </header>
+
+        {% if messages %}
+        <div class="px-4 sm:px-8 pt-6 space-y-2">
+            {% for message in messages %}
+            <div class="p-3.5 rounded-xl text-xs font-semibold border flex items-center gap-3 animate-in fade-in duration-200
+                {% if message.tags == 'error' %} bg-rose-50 border-rose-200 text-rose-700 
+                {% else %} bg-emerald-50 border-emerald-200 text-emerald-700 {% endif %}">
+                <i data-lucide="{% if message.tags == 'error' %}alert-circle{% else %}check-circle-2{% endif %}" class="w-4 h-4"></i>
+                <span>{{ message }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <main class="flex-1 p-4 sm:p-8">
+            {% block dashboard_content %}{% endblock %}
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const openSidebarBtn = document.getElementById('openSidebarBtn');
+            const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+            const mainSidebar = document.getElementById('mainSidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                mainSidebar.classList.toggle('-translate-x-full');
+                sidebarOverlay.classList.toggle('hidden');
+            }
+
+            // Event listener ketika tombol burger atau close diklik
+            if(openSidebarBtn) openSidebarBtn.addEventListener('click', toggleSidebar);
+            if(closeSidebarBtn) closeSidebarBtn.addEventListener('click', toggleSidebar);
+            if(sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+        });
+    </script>
+
+    <script>
+        // Inisialisasi ikon secara terpisah untuk ekosistem dashboard internal
+        lucide.createIcons();
+    </script>
+</body>
+</html>

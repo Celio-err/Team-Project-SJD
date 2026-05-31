@@ -22,7 +22,6 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, f"Bemvindu mai iha Dashboard, {username}!")
                 return redirect('dashboard') # Ganti ke nama URL dashboard Anda
             else:
                 messages.error(request, "Username ka Password sala.")
@@ -35,8 +34,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    messages.info(request, "Ita sai ona husi sistema.")
-    return redirect('login')
+    return redirect('home')
 
 
 def dashboard_view(request):
@@ -67,6 +65,10 @@ def dashboard_view(request):
         'prof_voluntariu': prof_voluntariu,
     }
     return render(request, 'dashboard.html', context)
+
+
+def index_view(request):
+    return render(request, 'home_portal.html')
 
 #views estudante
 def estudante_list_view(request):

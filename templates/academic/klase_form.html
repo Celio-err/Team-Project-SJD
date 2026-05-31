@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'base_dashboard.html' %}
 
-{% block content %}
+{% block dashboard_content %}
 <div class="max-w-2xl mx-auto px-4 py-12">
     <div class="mb-10">
         <h2 class="text-3xl font-bold text-slate-800">
@@ -63,7 +63,7 @@
                 <button type="submit" class="flex-1 py-4 bg-indigo-600 text-white rounded-xl font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 active:scale-95">
                     {% if klase %}Atualiza Dadus{% else %}Rai Klase{% endif %}
                 </button>
-                <a href="{% url 'list_klase' %}" class="flex-1 py-4 bg-slate-100 text-slate-600 text-center rounded-xl font-bold text-sm hover:bg-slate-200 transition-all">
+                <a href="{% url 'lista_klase' %}" class="flex-1 py-4 bg-slate-100 text-slate-600 text-center rounded-xl font-bold text-sm hover:bg-slate-200 transition-all">
                     Kansela
                 </a>
             </div>

@@ -21,13 +21,14 @@ from django.conf import settings
 from apps.academic import views
 from django.conf.urls.static import static
 from apps.users import views
-from apps.users.views import dashboard_view
+from apps.users.views import dashboard_view, index_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.login_view, name='login'),
+    path('login', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('dashboard', dashboard_view, name='dashboard'), # Halaman utama
+    path('dashboard/', dashboard_view, name='dashboard'),
+    path('', index_view, name='home'),
     path('users/', include('apps.users.urls')), # URL untuk aplikasi users
     path('academic/', include('apps.academic.urls')), # URL untuk aplikasi academic
     path('attendance/', include('apps.attendance.urls')), # URL untuk aplikasi attendance
