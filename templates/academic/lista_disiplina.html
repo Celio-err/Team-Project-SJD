@@ -1,18 +1,19 @@
 {% extends 'base_dashboard.html' %}
 
 {% block dashboard_content %}
-<div class="max-w-7xl mx-auto px-4">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div class="max-w-7xl mx-auto px-2 sm:px-4 min-w-0 w-full">
+    
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8 md:mb-12">
         <div>
             <div class="flex items-center gap-2 mb-2">
                 <span class="h-1 w-8 bg-indigo-600 rounded-full"></span>
                 <span class="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600">Akademiku</span>
             </div>
-            <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight leading-none">Lista Disiplina</h2>
-            <p class="text-slate-500 mt-3 font-medium text-lg">Manajementu kurikulu no materia ensinu.</p>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">Lista Disiplina</h2>
+            <p class="text-slate-500 mt-3 font-medium text-base md:text-lg">Manajementu kurikulu no materia ensinu.</p>
         </div>
         
-        <a href="{% url 'disiplina_create' %}" class="group flex items-center gap-3 px-7 py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-2xl shadow-slate-200 active:scale-95">
+        <a href="{% url 'disiplina_create' %}" class="group flex items-center justify-center gap-3 px-5 py-3.5 md:px-7 md:py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-2xl shadow-slate-200 active:scale-95 w-full sm:w-auto shrink-0">
             <div class="p-1 bg-white/10 rounded-lg group-hover:rotate-90 transition-transform">
                 <i data-lucide="plus" class="w-4 h-4"></i>
             </div>
@@ -20,9 +21,9 @@
         </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-        <div class="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm flex items-center gap-5">
-            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-10">
+        <div class="bg-white p-5 md:p-6 rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 shadow-sm flex items-center gap-5 w-full">
+            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shrink-0">
                 <i data-lucide="book-marked" class="w-6 h-6"></i>
             </div>
             <div>
@@ -32,75 +33,73 @@
         </div>
     </div>
 
-    <div class="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-slate-50/50 border-b border-slate-100">
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Kodigu</th>
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Disiplina</th>
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Departamentu/Kategoria</th>
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right">Jestaun</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-50">
-                    {% for d in disciplinas %}
-                    <tr class="group hover:bg-indigo-50/30 transition-all duration-300">
-                        <td class="px-8 py-6">
-                            <span class="font-mono font-bold text-indigo-600 bg-white border border-indigo-100 px-4 py-2 rounded-xl text-xs shadow-sm">
-                                {{ d.kodigu }}
-                            </span>
-                        </td>
-                        <td class="px-8 py-6">
-                            <div class="flex flex-col">
-                                <span class="font-bold text-slate-900 text-base group-hover:text-indigo-600 transition-colors">{{ d.naran_disiplina }}</span>
+    <div class="w-full overflow-x-auto bg-white rounded-[1.5rem] md:rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50">
+        <table class="w-full text-left border-collapse min-w-[750px]">
+            <thead>
+                <tr class="bg-slate-50/50 border-b border-slate-100">
+                    <th class="px-6 py-5 md:px-8 md:py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] w-[20%]">Kodigu</th>
+                    <th class="px-6 py-5 md:px-8 md:py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] w-[40%]">Disiplina</th>
+                    <th class="px-6 py-5 md:px-8 md:py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] w-[25%]">Departamentu/Kategoria</th>
+                    <th class="px-6 py-5 md:px-8 md:py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right w-[15%]">Jestaun</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-50">
+                {% for d in disciplinas %}
+                <tr class="group hover:bg-indigo-50/30 transition-all duration-300">
+                    <td class="px-6 py-4 md:px-8 md:py-6 whitespace-nowrap">
+                        <span class="font-mono font-bold text-indigo-600 bg-white border border-indigo-100 px-3 py-1.5 md:px-4 md:py-2 rounded-xl text-xs shadow-sm">
+                            {{ d.kodigu }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 md:px-8 md:py-6">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-slate-900 text-sm md:text-base group-hover:text-indigo-600 transition-colors">{{ d.naran_disiplina }}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 md:px-8 md:py-6 whitespace-nowrap">
+                        {% if d.departamentu == 'Geral' %}
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                                <span class="text-xs font-bold text-slate-600 uppercase italic">Geral</span>
                             </div>
-                        </td>
-                        <td class="px-8 py-6">
-                            {% if d.departamentu == 'Geral' %}
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-slate-400"></span>
-                                    <span class="text-xs font-bold text-slate-600 uppercase italic">Geral</span>
-                                </div>
-                            {% elif d.departamentu == 'CN' %}
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                    <span class="text-xs font-bold text-emerald-600 uppercase italic">Ciencia Naturais</span>
-                                </div>
-                            {% else %}
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                                    <span class="text-xs font-bold text-amber-600 uppercase italic">Ciencia Sociais</span>
-                                </div>
-                            {% endif %}
-                        </td>
-                        <td class="px-8 py-6 text-right">
-                            <div class="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <a href="{% url 'edit_disiplina' d.id %}" class="w-10 h-10 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 hover:border-indigo-200 rounded-xl shadow-sm transition-all">
-                                    <i data-lucide="edit-3" class="w-4 h-4"></i>
-                                </a>
-                                <a href="{% url 'hamoos_disiplina' d.id %}" class="w-10 h-10 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-red-600 hover:border-red-200 rounded-xl shadow-sm transition-all">
-                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                </a>
+                        {% elif d.departamentu == 'CN' %}
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span class="text-xs font-bold text-emerald-600 uppercase italic">Ciencia Naturais</span>
                             </div>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="4" class="px-8 py-24 text-center">
-                            <div class="flex flex-col items-center">
-                                <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4">
-                                    <i data-lucide="book-open" class="w-10 h-10 text-slate-200"></i>
-                                </div>
-                                <h4 class="text-slate-900 font-bold">Seidauk iha disiplina</h4>
-                                <p class="text-slate-400 text-sm mt-1">Klik iha butaun leten hodi aumenta foun.</p>
+                        {% else %}
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                <span class="text-xs font-bold text-amber-600 uppercase italic">Ciencia Sociais</span>
                             </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 md:px-8 md:py-6 text-right whitespace-nowrap">
+                        <div class="flex justify-end gap-2 md:gap-3 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a href="{% url 'edit_disiplina' d.id %}" class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 hover:border-indigo-200 rounded-xl shadow-sm transition-all shrink-0">
+                                <i data-lucide="edit-3" class="w-4 h-4"></i>
+                            </a>
+                            <a href="{% url 'hamoos_disiplina' d.id %}" class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-red-600 hover:border-red-200 rounded-xl shadow-sm transition-all shrink-0">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="px-8 py-16 md:py-24 text-center">
+                        <div class="flex flex-col items-center">
+                            <div class="w-16 h-16 md:w-20 md:h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4">
+                                <i data-lucide="book-open" class="w-8 h-8 md:w-10 md:h-10 text-slate-200"></i>
+                            </div>
+                            <h4 class="text-slate-900 font-bold text-sm md:text-base">Seidauk iha disiplina</h4>
+                            <p class="text-slate-400 text-xs md:text-sm mt-1">Klik iha butaun leten hodi aumenta foun.</p>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 

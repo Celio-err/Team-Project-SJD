@@ -18,7 +18,7 @@
         .sidebar-scroll::-webkit-scrollbar-thumb { background: #e4e4e7; border-radius: 2px; }
     </style>
 </head>
-<body class="antialiased min-h-screen flex overflow-x-hidden">
+<body class="antialiased min-h-screen flex">
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-zinc-900/40 z-30 hidden lg:hidden transition-opacity duration-300"></div>
 
@@ -144,6 +144,7 @@
 
         {% if messages %}
         <div class="px-4 sm:px-8 pt-6 space-y-2">
+            {% block messages_content %}
             {% for message in messages %}
             <div class="p-3.5 rounded-xl text-xs font-semibold border flex items-center gap-3 animate-in fade-in duration-200
                 {% if message.tags == 'error' %} bg-rose-50 border-rose-200 text-rose-700 
@@ -152,10 +153,11 @@
                 <span>{{ message }}</span>
             </div>
             {% endfor %}
+            {% endblock %}
         </div>
         {% endif %}
 
-        <main class="flex-1 p-4 sm:p-8">
+        <main class="flex-1 p-4 sm:p-8 min-w-0 w-full overflow-x-hidden">
             {% block dashboard_content %}{% endblock %}
         </main>
     </div>
@@ -172,7 +174,6 @@
                 sidebarOverlay.classList.toggle('hidden');
             }
 
-            // Event listener ketika tombol burger atau close diklik
             if(openSidebarBtn) openSidebarBtn.addEventListener('click', toggleSidebar);
             if(closeSidebarBtn) closeSidebarBtn.addEventListener('click', toggleSidebar);
             if(sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
@@ -180,7 +181,6 @@
     </script>
 
     <script>
-        // Inisialisasi ikon secara terpisah untuk ekosistem dashboard internal
         lucide.createIcons();
     </script>
 </body>
