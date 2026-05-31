@@ -36,6 +36,16 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
+def index_view(request):
+    total_estudante = Estudante.objects.count()
+    total_professores = Professor.objects.count()
+
+    context = {
+         'total_estudante': total_estudante,
+         'total_professores': total_professores,
+    }
+
+    return render(request, 'home_portal.html', context)
 
 def dashboard_view(request):
     # Data Siswa
@@ -67,8 +77,6 @@ def dashboard_view(request):
     return render(request, 'dashboard.html', context)
 
 
-def index_view(request):
-    return render(request, 'home_portal.html')
 
 #views estudante
 def estudante_list_view(request):

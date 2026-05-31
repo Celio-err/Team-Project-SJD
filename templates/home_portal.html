@@ -48,26 +48,21 @@
     </div>
 </section>
 
-<!-- 2. DATA STATISTIK ESKOLA (KOTAK COUNTER MINIMALIS) -->
-<section class="bg-zinc-50 py-12 border-b border-zinc-200/60">
+<section class="bg-zinc-50 py-8 border-b border-zinc-200/60">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white border border-zinc-200/80 p-8 rounded-2xl shadow-sm">
-            <div class="text-center md:text-left border-r border-zinc-100 last:border-0 pr-4">
-                <h3 class="text-3xl font-extrabold text-zinc-900">1,200+</h3>
-                <p class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mt-1">Estudante Ativu</p>
+        
+        <div class="max-w-xl mx-auto grid grid-cols-2 gap-4 bg-white border border-zinc-200/80 p-5 rounded-2xl shadow-sm">
+            
+            <div class="flex flex-col items-center justify-center text-center border-r border-zinc-100/80 px-2">
+                <h3 class="text-2xl font-black text-zinc-900 tracking-tight leading-none">{{ total_estudante |default:"0" }}</h3>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mt-2">Estudante Ativu</p>
             </div>
-            <div class="text-center md:text-left border-r border-zinc-100 last:border-0 pr-4 md:pl-4">
-                <h3 class="text-3xl font-extrabold text-zinc-900">45+</h3>
-                <p class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mt-1">Profesór Kualifikadu</p>
+            
+            <div class="flex flex-col items-center justify-center text-center px-2">
+                <h3 class="text-2xl font-black text-zinc-900 tracking-tight leading-none">{{ total_professores |default:"0" }}</h3>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mt-2">Profesóres</p>
             </div>
-            <div class="text-center md:text-left border-r border-zinc-100 last:border-0 pr-4 md:pl-4">
-                <h3 class="text-3xl font-extrabold text-zinc-900">18</h3>
-                <p class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mt-1">Sala de Aula</p>
-            </div>
-            <div class="text-center md:text-left md:pl-4">
-                <h3 class="text-3xl font-extrabold text-zinc-900">3</h3>
-                <p class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mt-1">Kursu Sira</p>
-            </div>
+
         </div>
     </div>
 </section>

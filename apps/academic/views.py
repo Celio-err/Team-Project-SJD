@@ -40,6 +40,9 @@ def disiplina_create_view(request):
             
     return render(request, 'academic/disiplina_form.html')
 
+
+
+
 def disiplina_list_view(request):
     # Mengambil semua disiplina dan mengurutkan berdasarkan departemen
     disciplinas = Disiplina.objects.all().order_by('departamentu', 'naran_disiplina')
