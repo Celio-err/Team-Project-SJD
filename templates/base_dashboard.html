@@ -51,13 +51,13 @@
             </div>
         </div>
 
-        <div class="flex-1 overflow-y-auto sidebar-scroll px-4 space-y-5">
+        <div id="mainSidebarNav" class="flex-1 overflow-y-auto sidebar-scroll px-4 space-y-5">
             
             <div>
                 <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Prinsipal</p>
                 <div class="space-y-0.5">
-                    <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors {% if request.resolver_match.url_name == 'dashboard' %} bg-zinc-100 text-zinc-900 font-semibold {% endif %}">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4 text-zinc-400"></i> Dashboard
+                    <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'dashboard' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0"></i> Dashboard
                     </a>
                 </div>
             </div>
@@ -65,17 +65,20 @@
             <div>
                 <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Dadus</p>
                 <div class="space-y-0.5">
-                    <a href="{% url 'disiplina_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
-                        <i data-lucide="book-open" class="w-4 h-4 text-zinc-400"></i> Disiplina
+                    <a href="{% url 'disiplina_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'disiplina_list' or request.resolver_match.url_name == 'disiplina_create' or request.resolver_match.url_name == 'disiplina_update' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
+                        <i data-lucide="book-open" class="w-4 h-4 shrink-0"></i> Disiplina
                     </a>
-                    <a href="{% url 'lista_klase' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
-                        <i data-lucide="columns" class="w-4 h-4 text-zinc-400"></i> Klase
+                    
+                    <a href="{% url 'lista_klase' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'lista_klase' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
+                        <i data-lucide="columns" class="w-4 h-4 shrink-0"></i> Klase
                     </a>
-                    <a href="{% url 'lista_professor' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
-                        <i data-lucide="award" class="w-4 h-4 text-zinc-400"></i> Professores
+                    
+                    <a href="{% url 'lista_professor' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'lista_professor' or request.resolver_match.url_name == 'professor_create' or request.resolver_match.url_name == 'edit_professor' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
+                        <i data-lucide="award" class="w-4 h-4 shrink-0"></i> Professores
                     </a>
-                    <a href="{% url 'estudante_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
-                        <i data-lucide="users" class="w-4 h-4 text-zinc-400"></i> Estudante
+                    
+                    <a href="{% url 'estudante_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'estudante_list' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
+                        <i data-lucide="users" class="w-4 h-4 shrink-0"></i> Estudante
                     </a>
                 </div>
             </div>
@@ -84,9 +87,8 @@
             <div>
                 <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Manejamentu</p>
                 <div class="space-y-0.5">
-                    
-                    <a href="{% url 'alokasaun_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
-                        <i data-lucide="git-pull-request" class="w-4 h-4 text-zinc-400"></i> Alokasaun
+                    <a href="{% url 'alokasaun_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'alokasaun_list' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
+                        <i data-lucide="git-pull-request" class="w-4 h-4 shrink-0"></i> Alokasaun
                     </a>
                 </div>
             </div>
@@ -95,8 +97,8 @@
             <div>
                 <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Relatoriu</p>
                 <div class="space-y-0.5">
-                    <a href="{% url 'lista_klase_finalista' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-colors">
-                        <i data-lucide="file-check" class="w-4 h-4 text-emerald-600"></i> Finalista
+                    <a href="{% url 'lista_klase_finalista' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-colors {% if request.resolver_match.url_name == 'lista_klase_finalista' %} bg-emerald-600 text-white shadow-md shadow-emerald-100 {% else %} text-emerald-700 bg-emerald-50 hover:bg-emerald-100 {% endif %}">
+                        <i data-lucide="file-check" class="w-4 h-4 shrink-0"></i> Finalista
                     </a>
                 </div>
             </div>
@@ -105,8 +107,8 @@
             <div>
                 <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Konfigurasaun</p>
                 <div class="space-y-0.5">
-                    <a href="{% url 'user_list'%}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
-                        <i data-lucide="sliders" class="w-4 h-4 text-zinc-400"></i> Manejamentu Utilizador
+                    <a href="{% url 'user_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'user_list' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
+                        <i data-lucide="sliders" class="w-4 h-4 shrink-0"></i> Manejamentu Utilizador
                     </a>
                 </div>
             </div>
@@ -115,7 +117,7 @@
         </div>
 
         <div class="p-4 border-t border-zinc-200/80">
-            <form action="{% url 'logout'%}" method="post">
+            <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-rose-600 hover:bg-rose-50 transition-colors">
                     <i data-lucide="log-out" class="w-4 h-4 text-rose-500"></i>
@@ -177,6 +179,18 @@
             if(openSidebarBtn) openSidebarBtn.addEventListener('click', toggleSidebar);
             if(closeSidebarBtn) closeSidebarBtn.addEventListener('click', toggleSidebar);
             if(sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+
+            // LOGIKA MEMORI SCROLL SIDEBAR
+            const sidebarNav = document.getElementById('mainSidebarNav');
+            const savedScrollPosition = localStorage.getItem('sidebarScrollPos');
+            if (savedScrollPosition && sidebarNav) {
+                sidebarNav.scrollTop = savedScrollPosition;
+            }
+            if (sidebarNav) {
+                sidebarNav.addEventListener('scroll', function() {
+                    localStorage.setItem('sidebarScrollPos', sidebarNav.scrollTop);
+                });
+            }
         });
     </script>
 

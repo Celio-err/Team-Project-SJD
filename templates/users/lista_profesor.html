@@ -1,119 +1,120 @@
 {% extends 'base_dashboard.html' %}
 
 {% block dashboard_content %}
-<div class="max-w-7xl mx-auto px-4 py-10">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div class="max-w-7xl mx-auto px-4 py-6 md:py-10 w-full min-w-0 overflow-hidden">
+    
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8 md:mb-12">
         <div>
             <div class="flex items-center gap-2 mb-3">
                 <span class="h-1.5 w-10 bg-indigo-600 rounded-full"></span>
                 <span class="text-[11px] font-black uppercase tracking-[0.3em] text-indigo-600">Rekursu Umanu</span>
             </div>
-            <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight leading-none">Dadus Professores</h2>
-            <p class="text-slate-500 mt-3 font-medium text-lg">Jere no kontrola informasaun hotu kona-ba Professores.</p>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">Dadus Professores</h2>
+            <p class="text-slate-500 mt-3 font-medium text-base md:text-lg">Jere no kontrola informasaun hotu kona-ba Professores.</p>
         </div>
         
-        <a href="{% url 'professor_create' %}" class="group flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase tracking-[0.2em] hover:bg-indigo-600 transition-all shadow-2xl shadow-slate-200 active:scale-95">
+        <a href="{% url 'professor_create' %}" class="group flex items-center justify-center gap-3 px-6 py-3.5 md:px-8 md:py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase tracking-[0.2em] hover:bg-indigo-600 transition-all shadow-2xl shadow-slate-200 active:scale-95 w-full sm:w-auto shrink-0">
             <svg class="w-5 h-5 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
             Aumenta Professor
         </a>
     </div>
 
-    <div class="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+    <div class="w-full bg-white rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden">
+        <div class="w-full overflow-x-auto">
+            
+            <table class="w-full text-left border-collapse min-w-full table-auto">
                 <thead>
-                    <tr class="bg-slate-50/50 border-b border-slate-100">
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Nu.</th>
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Naran Professor</th>
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">ID Funsionariu</th>
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Status</th>
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Cargo</th>    
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Kontaktu</th>
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right">Jestaun</th>
+                    <tr class="bg-slate-50/70 border-b border-slate-100">
+                        <th class="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] w-[40px]">Nu.</th>
+                        <th class="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Naran Professor</th>
+                        <th class="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">ID Funsionariu</th>
+                        <th class="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Status</th>
+                        <th class="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Cargo</th>    
+                        <th class="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Kontaktu</th>
+                        <th class="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right w-[90px]">Jestaun</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-50">
+                <tbody class="divide-y divide-slate-100/70">
                     {% for p in professores %}
-                    <tr class="group hover:bg-indigo-50/30 transition-all duration-300">
-                        <td class="px-8 py-6">
-                            <span class="text-xs font-black text-slate-300 group-hover:text-indigo-600 transition-colors">{{ forloop.counter }}</span>
+                    <tr class="group hover:bg-slate-50/80 transition-all duration-200">
+                        <td class="px-4 py-3.5 align-middle">
+                            <span class="text-xs font-bold text-slate-400 group-hover:text-indigo-600 transition-colors">{{ forloop.counter }}</span>
                         </td>
-                        <td class="px-8 py-6">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-white border-2 border-slate-100 text-indigo-600 rounded-2xl flex items-center justify-center font-black text-lg shadow-sm group-hover:border-indigo-200 transition-all">
+                        
+                        <td class="px-4 py-3.5 align-middle">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 bg-slate-50 border border-slate-100 text-indigo-600 rounded-xl flex items-center justify-center font-black text-xs shadow-sm group-hover:border-indigo-100 group-hover:bg-white transition-all shrink-0">
                                     {{ p.naran_kompletu|slice:":1" }}
                                 </div>
-                                <div>
-                                    <p class="font-bold text-slate-900 text-base leading-tight group-hover:text-indigo-600 transition-colors">{{ p.naran_kompletu }}</p>
-                                    <div class="flex gap-3 mt-1">
-                                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">NISS: {{ p.nis }}</span>
-                                        
+                                <div class="min-w-0">
+                                    <p class="font-bold text-slate-800 text-sm leading-snug group-hover:text-indigo-600 transition-colors whitespace-nowrap">{{ p.naran_kompletu }}</p>
+                                    <div class="flex gap-3 mt-0.5">
+                                        <span class="text-[10px] text-slate-400 font-semibold tracking-wide whitespace-nowrap">NISS: {{ p.nis }}</span>
                                     </div>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-8 py-6">
-                            <span class="text-sm font-bold text-slate-700">{{ p.id_funcionario }}</span>
+                        
+                        <td class="px-4 py-3.5 align-middle whitespace-nowrap text-sm font-semibold text-slate-600">
+                            {{ p.id_funcionario }}
                         </td>
-                        <td class="px-8 py-6">
+                        
+                        <td class="px-4 py-3.5 align-middle whitespace-nowrap">
                             {% if p.status == 'Permanente' %}
-                                <span class="px-4 py-1.5 bg-indigo-600 text-white rounded-full text-[9px] font-black uppercase tracking-widest italic">Permanente</span>
+                                <span class="inline-flex px-2.5 py-0.5 bg-indigo-50 text-indigo-700 border border-indigo-100 rounded-md text-[10px] font-bold tracking-wide">Permanente</span>
                             {% elif p.status == 'Kontratadu' %}
-                                <span class="px-4 py-1.5 bg-amber-500 text-white rounded-full text-[9px] font-black uppercase tracking-widest italic">Kontratadu</span>
+                                <span class="inline-flex px-2.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-100 rounded-md text-[10px] font-bold tracking-wide">Kontratadu</span>
                             {% else %}
-                                <span class="px-4 py-1.5 bg-slate-400 text-white rounded-full text-[9px] font-black uppercase tracking-widest italic">Voluntariu</span>
+                                <span class="inline-flex px-2.5 py-0.5 bg-slate-100 text-slate-600 border border-slate-200 rounded-md text-[10px] font-bold tracking-wide">Voluntariu</span>
                             {% endif %}
                         </td>
-                        <td class="px-8 py-6">
-    {% if p.cargo == '-' or not p.cargo %}
-        <span class="inline-flex items-center px-3 py-1 bg-slate-100 text-slate-400 rounded-lg border border-slate-200 text-[10px] font-black uppercase tracking-wider italic">
-            -
-        </span>
-    {% elif p.cargo == 'Diretor' or p.cargo == 'Diretor/a da Escola' %}
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-purple-50 text-purple-600 rounded-lg border border-purple-100 text-[10px] font-black uppercase tracking-wider">
-            <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
-            Diretor/a da Escola
-        </span>
-    {% else %}
-        <span class="inline-flex items-center px-3 py-1 bg-emerald-50 text-emerald-600 rounded-lg border border-emerald-100 text-[10px] font-black uppercase tracking-wider">
-            {{ p.cargo }}
-        </span>
-    {% endif %}
-</td>
-                       
-        
-
-                        <td class="px-8 py-6">
-                            <div class="flex flex-col">
-                                <span class="text-sm font-bold text-slate-700">+670 {{ p.nu_telemovel }}</span>
-                            </div>
+                        
+                        <td class="px-4 py-3.5 align-middle whitespace-nowrap">
+                            {% if p.cargo == '-' or not p.cargo %}
+                                <span class="text-slate-400 text-sm font-medium pl-2">-</span>
+                            {% elif p.cargo == 'Diretor' or p.cargo == 'Diretor/a da Escola' %}
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-purple-50 text-purple-700 rounded-md border border-purple-100 text-[10px] font-bold tracking-wide">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
+                                    Diretor/a da Escola
+                                </span>
+                            {% else %}
+                                <span class="inline-flex items-center px-2.5 py-0.5 bg-emerald-50 text-emerald-700 rounded-md border border-emerald-100 text-[10px] font-bold tracking-wide">
+                                    {{ p.cargo }}
+                                </span>
+                            {% endif %}
                         </td>
-                        <td class="px-8 py-6 text-right">
-                            <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0">
-                                <a href="{% url 'edit_professor' p.id %}" class="w-10 h-10 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 hover:border-indigo-200 rounded-xl shadow-sm transition-all">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                        
+                        <td class="px-4 py-3.5 align-middle whitespace-nowrap text-sm font-semibold text-slate-600">
+                            +670 {{ p.nu_telemovel }}
+                        </td>
+                        
+                        <td class="px-4 py-3.5 text-right align-middle whitespace-nowrap">
+                            <div class="flex justify-end gap-1.5">
+                                <a href="{% url 'edit_professor' p.id %}" class="w-8 h-8 flex items-center justify-center bg-white border border-slate-200 text-slate-400 hover:text-indigo-600 hover:border-indigo-200 rounded-lg shadow-sm transition-all" title="Edit">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                                 </a>
-                                <a href="{% url 'hamoos_professor' p.id %}" class="w-10 h-10 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-red-500 hover:border-red-200 rounded-xl shadow-sm transition-all">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                <a href="{% url 'hamoos_professor' p.id %}" class="w-8 h-8 flex items-center justify-center bg-white border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-200 rounded-lg shadow-sm transition-all" title="Hamoos">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                 </a>
                             </div>
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="5" class="px-8 py-32 text-center">
+                        <td colspan="7" class="px-8 py-24 text-center">
                             <div class="flex flex-col items-center">
-                                <div class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mb-6">
+                                <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-6">
                                     <svg class="w-10 h-10 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                                 </div>
-                                <h3 class="text-xl font-bold text-slate-900">Seidauk iha Professor</h3>
-                                <p class="text-slate-400 mt-1">Dadus profesor sira sei mosu iha ne'e bainhira rejistadu ona.</p>
+                                <h3 class="text-lg font-bold text-slate-900">Seidauk iha Professor</h3>
+                                <p class="text-sm text-slate-400 mt-1">Dadus profesor sira sei mosu iha ne'e bainhira rejistadu ona.</p>
                             </div>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            
         </div>
     </div>
 </div>
