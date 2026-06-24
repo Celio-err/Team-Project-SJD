@@ -1,0 +1,163 @@
+{% extends 'base_dashboard.html' %}
+
+{% block dashboard_content %}
+<div class="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-300">
+    
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-zinc-200/80 shadow-sm">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center border border-blue-100 shadow-sm">
+                <i data-lucide="compass" class="w-6 h-6"></i>
+            </div>
+            <div class="flex flex-col">
+                <h1 class="text-xl font-extrabold text-zinc-900 tracking-tight">Vizaun no Misaun</h1>
+                <p class="text-xs font-medium text-zinc-400 mt-0.5">Maneja no hateke fundamentu prinsipál ESGP 1912 Same</p>
+            </div>
+        </div>
+        
+        {% if user.is_superuser %}
+        <div>
+            <button onclick="openModal()" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all shadow-sm active:scale-95 duration-150 cursor-pointer">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                Atualiza Dadus
+            </button>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <div class="lg:col-span-5 bg-white border border-zinc-200/80 p-8 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl transition-all group-hover:bg-blue-500/10"></div>
+            
+            <div>
+                <div class="w-12 h-12 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 shadow-sm group-hover:scale-105 transition-transform">
+                    <i data-lucide="eye" class="w-5 h-5"></i>
+                </div>
+                
+                <h3 class="text-base font-extrabold tracking-wider text-zinc-900 uppercase mb-4">
+                    {{ vizaun.titulu|default:"Ami-nia Vizaun" }}
+                </h3>
+                
+                <p class="text-zinc-600 text-xs sm:text-sm font-medium leading-relaxed whitespace-pre-line">
+                    {{ vizaun.deskrisaun|default:"Seidauk iha konteudu vizaun. Favor klike 'Atualiza Dadus' hodi aumenta." }}
+                </p>
+            </div>
+
+            <div class="pt-6 mt-8 border-t border-zinc-100 flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-blue-600">
+                <span>Orientasaun Futuru</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-white border border-zinc-200/80 p-8 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl transition-all group-hover:bg-indigo-500/10"></div>
+            
+            <div>
+                <div class="w-12 h-12 bg-indigo-50 border border-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-6 shadow-sm group-hover:scale-105 transition-transform">
+                    <i data-lucide="target" class="w-5 h-5"></i>
+                </div>
+                
+                <h3 class="text-base font-extrabold tracking-wider text-zinc-900 uppercase mb-6">
+                    {{ misaun.titulu|default:"Ami-nia Misaun" }}
+                </h3>
+                
+                <div class="text-zinc-600 text-xs sm:text-sm font-medium leading-relaxed whitespace-pre-line">
+                    {{ misaun.deskrisaun|default:"Seidauk iha konteudu misaun. Favor klike 'Atualiza Dadus' hodi aumenta." }}
+                </div>
+            </div>
+
+            <div class="pt-6 mt-8 border-t border-zinc-100 flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-indigo-600">
+                <span>Asaun Prátika</span>
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="p-4 bg-zinc-50 rounded-xl border border-zinc-200/60 flex items-center gap-3">
+        <i data-lucide="info" class="w-4 h-4 text-zinc-400 shrink-0"></i>
+        <p class="text-[11px] text-zinc-500 font-medium">
+            Dokumentu Vizaun no Misaun ne'e legál no aprova tiha ona husi Konsellu Diresaun Eskola nian ba tinan leten nian.
+        </p>
+    </div>
+
+</div>
+
+<div id="crud-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/40 backdrop-blur-sm animate-in fade-in duration-200">
+    <div class="bg-white w-full max-w-2xl rounded-2xl border border-zinc-200 shadow-xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
+        
+        <div class="p-6 border-b border-zinc-100 flex items-center justify-between bg-zinc-50">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center border border-blue-100">
+                    <i data-lucide="settings-2" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h2 class="text-sm font-extrabold text-zinc-900 uppercase tracking-wider">Formuláriu Vizaun & Misaun</h2>
+                    <p class="text-[11px] text-zinc-400 font-medium">Kria ka edit konteudu institusionál</p>
+                </div>
+            </div>
+            <button onclick="closeModal()" class="p-1.5 hover:bg-zinc-200/60 rounded-lg text-zinc-400 hover:text-zinc-700 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <form method="POST" action="" class="flex flex-col flex-1 overflow-y-auto p-6 space-y-6">
+            {% csrf_token %}
+            
+            <div class="space-y-3 p-4 border border-zinc-100 bg-zinc-50/50 rounded-xl">
+                <span class="text-[10px] font-extrabold text-blue-600 uppercase tracking-widest block">Seisaun Leten (Vizaun)</span>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-zinc-500 tracking-wider mb-1.5">Títulu Vizaun</label>
+                    <input type="text" name="vizaun_titulu" value="{{ vizaun.titulu|default:'Ami-nia Vizaun' }}" required
+                        class="w-full bg-white border border-zinc-200 rounded-xl px-4 py-2.5 text-xs font-medium focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-zinc-500 tracking-wider mb-1.5">Deskrisaun / Konteudu Vizaun</label>
+                    <textarea name="vizaun_deskrisaun" rows="4" required
+                        class="w-full bg-white border border-zinc-200 rounded-xl px-4 py-2.5 text-xs font-medium focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all resize-none">{{ vizaun.deskrisaun }}</textarea>
+                </div>
+            </div>
+
+            <div class="space-y-3 p-4 border border-zinc-100 bg-zinc-50/50 rounded-xl">
+                <span class="text-[10px] font-extrabold text-indigo-600 uppercase tracking-widest block">Seisaun Karik (Misaun)</span>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-zinc-500 tracking-wider mb-1.5">Títulu Misaun</label>
+                    <input type="text" name="misaun_titulu" value="{{ misaun.titulu|default:'Ami-nia Misaun' }}" required
+                        class="w-full bg-white border border-zinc-200 rounded-xl px-4 py-2.5 text-xs font-medium focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-all">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-zinc-500 tracking-wider mb-1.5">Deskrisaun / Konteudu Misaun</label>
+                    <textarea name="misaun_deskrisaun" rows="5" required
+                        class="w-full bg-white border border-zinc-200 rounded-xl px-4 py-2.5 text-xs font-medium focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-all resize-none"
+                        placeholder="Ita bele uza formatu lista ketak-ketak...">{{ misaun.deskrisaun }}</textarea>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-zinc-100 flex items-center justify-end gap-3 bg-white sticky bottom-0">
+                <button type="button" onclick="closeModal()" 
+                    class="px-4 py-2.5 border border-zinc-200 hover:bg-zinc-50 rounded-xl text-xs font-bold tracking-wide uppercase text-zinc-600 transition-colors">
+                    Kansela
+                </button>
+                <button type="submit" 
+                    class="px-5 py-2.5 bg-zinc-950 hover:bg-blue-600 text-white rounded-xl text-xs font-bold tracking-wide uppercase transition-colors shadow-sm">
+                    Guarda Alterasaun
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        const modal = document.getElementById('crud-modal');
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Hapara scroll background
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('crud-modal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto'; // Ativa fali scroll
+    }
+</script>
+{% endblock %}

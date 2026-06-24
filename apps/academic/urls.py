@@ -14,4 +14,5 @@ urlpatterns = [
     path('alokasaun/konfigura/<int:pk>/', views.konfig_alokasaun, name='konfig_alokasaun'),
     path('prezensa/<int:klase_id>/', views.estudante_kada_klase, name='lista_prezensa'),
     path('alokasaun/delete/<int:pk>/', views.hamoos_alokasaun, name='delete_alokasaun'),
+    path('academic/misaun-vizaun', views.vizaun_misaun, name='vizaun_misaun'),
 ]

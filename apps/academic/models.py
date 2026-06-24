@@ -33,27 +33,10 @@ class AlokasiMateria(models.Model):
     def __str__(self):
         return f"{self.disiplina} - {self.klase}"
     
-from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+class MisaunVizaun(models.Model):
+    titulu =  models.CharField(max_length=100, blank=False, null=False)
+    deskrisaun = models.TextField()
 
-# ... (Tetap biarkan model Klase, Disiplina, dan AlokasiMateria Anda yang sudah ada)
-
-# @receiver(post_save, sender=Klase)
-# def alokasi_materia_automatiku(sender, instance, created, **kwargs):
-#     if created:
-#         # 1. Cari pelajaran yang departemennya cocok (CN/CSH) ATAU yang bersifat 'Geral'
-#         disiplinas = Disiplina.objects.filter(
-#             models.Q(departamentu=instance.departamentu) | models.Q(departamentu='Geral')
-#         )
+    def __str__(self):
+            return self.titulu
         
-#         # 2. Buat AlokasiMateria untuk setiap pelajaran yang ditemukan
-#         # Karena guru belum diketahui, kita biarkan null atau pilih guru default
-#         for materia in disiplinas:
-#             AlokasiMateria.objects.get_or_create(
-#                 disiplina=materia,
-#                 klase=instance,
-#                 # Catatan: Lapangan 'professor' di model Anda harus allow null=True 
-#                 # jika ingin benar-benar otomatis tanpa guru di awal.
-#                 # Jika tidak, kita bisa abaikan dulu bagian ini atau buat guru 'Temporary'
-#             )

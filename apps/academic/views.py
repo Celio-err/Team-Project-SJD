@@ -222,3 +222,39 @@ def estudante_kada_klase(request, klase_id):
         'estudantes': estudantes
     }
     return render(request, 'academic/lista_prezensa.html', context)
+
+#vies ba vizaun no misaun
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import MisaunVizaun
+
+@login_required
+def vizaun_misaun(request):
+    # Foti de'it dadus primeiru ho segundu iha database, se mamuk kria automatikamente
+    vizaun, created = MisaunVizaun.objects.get_or_create(
+        id=1, 
+        defaults={"titulu": "Ami-nia Vizaun", "deskrisaun": "Ami-nia Vizaun seidauk iha konteudu."}
+    )
+    misaun, created = MisaunVizaun.objects.get_or_create(
+        id=2, 
+        defaults={"titulu": "Ami-nia Misaun", "deskrisaun": "Ami-nia Misaun seidauk iha konteudu."}
+    )
+
+    if request.method == "POST":
+        if request.user.is_superuser:
+            # Simu títulu no deskrisaun foun husi modal (Maski títulu troka, ID nafatin 1 ho 2)
+            vizaun.titulu = request.POST.get('vizaun_titulu')
+            vizaun.deskrisaun = request.POST.get('vizaun_deskrisaun')
+            vizaun.save()
+
+            misaun.titulu = request.POST.get('misaun_titulu')
+            misaun.deskrisaun = request.POST.get('misaun_deskrisaun')
+            misaun.save()
+            
+            return redirect('vizaun_misaun')
+
+    context = {
+        'vizaun': vizaun,
+        'misaun': misaun,
+    }
+    return render(request, 'academic/misaun_vizaun.html', context)

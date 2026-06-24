@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="tet">
+<html lang="tet" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,12 +21,12 @@
         }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+<body id="leten" class="antialiased min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
 
     <nav class="w-full bg-white/80 backdrop-blur-md border-b border-zinc-200/60 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
             
-            <a href="#" class="flex items-center gap-3.5 group">
+            <a href="#leten" class="flex items-center gap-3.5 group">
                 <div class="w-11 h-11 bg-zinc-50 rounded-xl overflow-hidden p-0.5 border border-zinc-200/80 transition-all group-hover:border-blue-600 group-hover:shadow-sm">
                     <img src="{% static 'img/Logo_ESGP.jpeg' %}" alt="Logo ESGP" class="w-full h-full object-cover rounded-xl">
                 </div>
@@ -36,11 +36,16 @@
                 </div>
             </a>
 
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#" class="text-xs font-bold uppercase tracking-wider text-zinc-900 transition-colors relative after:absolute after:bottom-[-29px] after:left-0 after:w-full after:h-[2px] after:bg-blue-600">Portal</a>
-                <a href="#" class="text-xs font-bold uppercase tracking-wider text-zinc-500 hover:text-zinc-900 transition-colors">Vizaun no Misaun</a>
-                <a href="#" class="text-xs font-bold uppercase tracking-wider text-zinc-500 hover:text-zinc-900 transition-colors">Informasaun Eskola</a>
-                <a href="#" class="text-xs font-bold uppercase tracking-wider text-zinc-500 hover:text-zinc-900 transition-colors">Kona-ba Eskola</a>
+            <div class="hidden md:flex items-center gap-8 h-full">
+                <a href="#leten" data-section="leten" class="nav-link text-xs font-bold uppercase tracking-wider transition-all duration-200 relative h-full flex items-center text-blue-600 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-blue-600">
+                    Portal
+                </a>
+                <a href="#vizaun-misaun" data-section="vizaun-misaun" class="nav-link text-xs font-bold uppercase tracking-wider transition-all duration-200 relative h-full flex items-center text-zinc-500 hover:text-zinc-900">
+                    Vizaun no Misaun
+                </a>
+                <a href="#kona-ba" data-section="kona-ba" class="nav-link text-xs font-bold uppercase tracking-wider transition-all duration-200 relative h-full flex items-center text-zinc-500 hover:text-zinc-900">
+                    Kona-ba Eskola
+                </a>
             </div>
 
             <div class="hidden md:flex items-center">
@@ -56,10 +61,10 @@
         </div>
 
         <div id="mobile-nav" class="hidden md:hidden bg-white border-b border-zinc-200 px-6 py-6 space-y-4">
-            <a href="#" class="block text-xs font-bold uppercase tracking-wider text-zinc-900">Portal</a>
-            <a href="#" class="block text-xs font-bold uppercase tracking-wider text-zinc-500">Vizaun no Misaun</a>
-            <a href="#" class="block text-xs font-bold uppercase tracking-wider text-zinc-500">Informasaun Eskola</a>
-            <a href="#" class="block text-xs font-bold uppercase tracking-wider text-zinc-500">Kona-ba Eskola</a>
+            <a href="#leten" onclick="toggleMenu()" data-section="leten" class="mobile-nav-link block text-xs font-bold uppercase tracking-wider p-2 rounded-lg text-blue-600 bg-blue-50">Portal</a>
+            <a href="#vizaun-misaun" onclick="toggleMenu()" data-section="vizaun-misaun" class="mobile-nav-link block text-xs font-bold uppercase tracking-wider p-2 rounded-lg text-zinc-500">Vizaun no Misaun</a>
+            <a href="#kona-ba" onclick="toggleMenu()" data-section="kona-ba" class="mobile-nav-link block text-xs font-bold uppercase tracking-wider p-2 rounded-lg text-zinc-500">Kona-ba Eskola</a>
+            
             <div class="pt-4 border-t border-zinc-100">
                 <a href="{% url 'login' %}" class="flex items-center justify-center gap-2 bg-zinc-950 text-white py-3 rounded-xl text-xs font-bold tracking-wider uppercase w-full">
                     <i data-lucide="log-in" class="w-4 h-4"></i> Login Sistema
@@ -69,80 +74,13 @@
     </nav>
 
     <main class="flex-1 w-full">
-        
         {% block content %}
-        
-        <section class="relative overflow-hidden py-20 lg:py-32 bg-white border-b border-zinc-200/50">
-            <div class="absolute inset-0 bg-[radial-gradient(#e4e4e7_1px,transparent_1px)] [background-size:24px_24px] opacity-40"></div>
-            <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-                <div class="max-w-3xl flex flex-col items-start">
-                    <div class="inline-flex items-center gap-2 bg-zinc-100 border border-zinc-200/80 px-3.5 py-1.5 rounded-full mb-6">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
-                        <span class="text-[10px] font-extrabold text-zinc-600 uppercase tracking-widest">Plataforma Dijitál Ofisiál</span>
-                    </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-gradient leading-[1.1] mb-6">
-                        Eskola Secundária Geral Público 1912 Same
-                    </h1>
-                    <p class="text-zinc-500 font-medium text-base sm:text-lg leading-relaxed max-w-2xl mb-10">
-                        Bem-vindo ba portal integradu de jestaun akadómiku no informasaun ofisiál. Konstrui futuru edukasaun nian iha Munisípiu Manufahi ho transparánsia, inovasaun, no kualidade naroman.
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#" class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3.5 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/10">
-                            Esplora Informasaun <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                        <a href="#" class="inline-flex items-center gap-2 bg-zinc-50 text-zinc-900 border border-zinc-200 px-6 py-3.5 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-zinc-100 transition-colors">
-                            Kona-ba Eskola
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <section id="vizaun-misaun" class="min-h-screen pt-24 px-8 bg-zinc-50">
+            <h2 class="text-2xl font-bold">Seisaun Vizaun no Misaun</h2>
         </section>
-
-        <section class="py-20 max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <div class="bg-white border border-zinc-200/60 p-8 rounded-2xl shadow-sm hover:border-zinc-300 transition-all duration-200">
-                    <div class="w-10 h-10 bg-zinc-50 border border-zinc-200/80 rounded-xl flex items-center justify-center text-zinc-900 mb-6">
-                        <i data-lucide="compass" class="w-4 h-4"></i>
-                    </div>
-                    <h3 class="font-extrabold text-sm uppercase tracking-wider text-zinc-900 mb-3">Vizaun & Misaun</h3>
-                    <p class="text-zinc-500 text-xs font-medium leading-relaxed mb-6">
-                        Hateten lala'ek dezenvolvimentu koñesimentu, kualidade étika, no formasaun karakter estudante nian ba futuru Timor-Leste.
-                    </p>
-                    <a href="#" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors uppercase tracking-wider">
-                        Lee Kompletu <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-                    </a>
-                </div>
-
-                <div class="bg-white border border-zinc-200/60 p-8 rounded-2xl shadow-sm hover:border-zinc-300 transition-all duration-200">
-                    <div class="w-10 h-10 bg-zinc-50 border border-zinc-200/80 rounded-xl flex items-center justify-center text-zinc-900 mb-6">
-                        <i data-lucide="bell" class="w-4 h-4"></i>
-                    </div>
-                    <h3 class="font-extrabold text-sm uppercase tracking-wider text-zinc-900 mb-3">Informasaun Ofisiál</h3>
-                    <p class="text-zinc-500 text-xs font-medium leading-relaxed mb-6">
-                        Asesu ba avizu foun, kalendáriu eskolár, prosetu sira, no dezenvolvimentu foun hotu-hotu ne'ebé akontese iha eskola laran.
-                    </p>
-                    <a href="#" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors uppercase tracking-wider">
-                        Haree Avizu <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-                    </a>
-                </div>
-
-                <div class="bg-white border border-zinc-200/60 p-8 rounded-2xl shadow-sm hover:border-zinc-300 transition-all duration-200">
-                    <div class="w-10 h-10 bg-zinc-50 border border-zinc-200/80 rounded-xl flex items-center justify-center text-zinc-900 mb-6">
-                        <i data-lucide="shield-check" class="w-4 h-4"></i>
-                    </div>
-                    <h3 class="font-extrabold text-sm uppercase tracking-wider text-zinc-900 mb-3">Akesu Portaria</h3>
-                    <p class="text-zinc-500 text-xs font-medium leading-relaxed mb-6">
-                        Portal restritu ba koadru profesór, diresaun, no administradór sira hodi jere kualifikasaun, nota, no dadus estudante nian.
-                    </p>
-                    <a href="#" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors uppercase tracking-wider">
-                        Konekta Sistema <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-                    </a>
-                </div>
-
-            </div>
+        <section id="kona-ba" class="min-h-screen pt-24 px-8 bg-white">
+            <h2 class="text-2xl font-bold">Seisaun Kona-ba Eskola</h2>
         </section>
-
         {% endblock %}
     </main>
 
@@ -150,7 +88,7 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
             <div class="flex flex-col">
                 <span class="text-zinc-900 font-extrabold text-sm uppercase tracking-wider">Escola Secundária Geral Público 1912 Same</span>
-                <span class="text-[11px] text-zinc-400 font-medium mt-1.5">&copy; 2026 Jestaun Akadómiku Internu. All Rights Reserved.</span>
+                <span class="text-[11px] text-zinc-400 font-medium mt-1.5">&copy; 2026 Jestaun Akademiku Internu. All Rights Reserved.</span>
             </div>
             <div class="flex items-center gap-6 text-[11px] text-zinc-400 font-bold uppercase tracking-widest">
                 <span>Rejionál: Dom Boaventura</span>
@@ -161,7 +99,10 @@
     </footer>
 
     <script>
+        // Inisializasaun Lucide Icons
         lucide.createIcons();
+
+        // Funsun ba Menu Mobile Toggle
         function toggleMenu() {
             const nav = document.getElementById('mobile-nav');
             const icon = document.getElementById('mobile-icon');
@@ -173,6 +114,72 @@
             }
             lucide.createIcons();
         }
+
+        // LOGIKA ATU LIÑA OKOS (UNDERLINE) MENETAP TUIR KLIQUE NO SCROLL
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            
+            // 1. Logika Klik Diretu
+            function activateLink(targetId) {
+                // Ba Desktop
+                navLinks.forEach(link => {
+                    if(link.getAttribute('data-section') === targetId) {
+                        link.classList.remove('text-zinc-500', 'hover:text-zinc-900');
+                        link.classList.add('text-blue-600', 'after:absolute', 'after:bottom-0', 'after:left-0', 'after:w-full', 'after:h-[2px]', 'after:bg-blue-600');
+                    } else {
+                        link.classList.add('text-zinc-500', 'hover:text-zinc-900');
+                        link.classList.remove('text-blue-600', 'after:absolute', 'after:bottom-0', 'after:left-0', 'after:w-full', 'after:h-[2px]', 'after:bg-blue-600');
+                    }
+                });
+
+                // Ba Mobile
+                mobileLinks.forEach(link => {
+                    if(link.getAttribute('data-section') === targetId) {
+                        link.classList.remove('text-zinc-500');
+                        link.classList.add('text-blue-600', 'bg-blue-50');
+                    } else {
+                        link.classList.add('text-zinc-500');
+                        link.classList.remove('text-blue-600', 'bg-blue-50');
+                    }
+                });
+            }
+
+            // Rona ba klike eventu
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    activateLink(this.getAttribute('data-section'));
+                });
+            });
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    activateLink(this.getAttribute('data-section'));
+                });
+            });
+
+            // 2. Inteligente deteksaun uza IntersectionObserver (Nafatin ativu kuandu scroll)
+            const sections = document.querySelectorAll('body, section[id]');
+            const options = {
+                root: null,
+                threshold: 0.3, // Sei ativa kuandu 30% husi seisaun mosu iha ekraun
+                rootMargin: "-20% 0px -60% 0px" // Ajusta hodi fokus liután ba área klaran
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        activateLink(id);
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                if(section.getAttribute('id')) {
+                    observer.observe(section);
+                }
+            });
+        });
     </script>
 </body>
 </html>

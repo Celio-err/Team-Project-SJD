@@ -2,19 +2,17 @@
 {% load static %}
 
 {% block content %}
-<!-- 1. HERO SECTION (PANGGUNG UTAMA WEBSITE) -->
+<!-- 1. HERO SECTION -->
 <section class="relative overflow-hidden bg-white border-b border-zinc-200/60 -mt-8 py-20 lg:py-28">
-    <!-- Pola Background Grid Modern -->
     <div class="absolute inset-0 bg-[radial-gradient(#e4e4e7_1px,transparent_1px)] [background-size:32px_32px] opacity-60"></div>
     
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            <!-- Teks Utama (Kiri) -->
             <div class="lg:col-span-7 flex flex-col items-start text-left">
                 <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full mb-6">
                     <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                    <span class="text-[10px] font-extrabold text-blue-700 uppercase tracking-widest">Portal Ofisiál Governu nian</span>
+                    <span class="text-[10px] font-extrabold text-blue-700 uppercase tracking-widest">Portal Ofisiál ESGP SAME MANUFAHI</span>
                 </div>
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-zinc-950 tracking-tight leading-[1.1] mb-6">
                     Edukasaun ho Kualidade, <br>
@@ -23,19 +21,17 @@
                 <p class="text-zinc-500 font-medium text-base sm:text-lg leading-relaxed max-w-xl mb-8">
                     Benvindo ba Escola Secundária Geral Público 1912 Same, Munisípiu Manufahi. Ami empenha an hodi fó naroman siénsia, teknolojia, no valór étika ba jerasaun foun Timor-Leste.
                 </p>
-                <div class="flex flex-wrap gap-4 w-full sm:w-auto">
-                    <a href="#" class="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-4 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-blue-700 transition-all shadow-md w-full sm:w-auto">
+                {% comment %} <div class="flex flex-wrap gap-4 w-full sm:w-auto">
+                    <a href="#notisia" class="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-4 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-blue-700 transition-all shadow-md w-full sm:w-auto">
                         Esplora Informasaun <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
-                    <a href="#" class="inline-flex items-center justify-center gap-2 bg-zinc-50 text-zinc-900 border border-zinc-200 px-6 py-4 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-zinc-100 transition-all w-full sm:w-auto">
+                    <a href="#kona-ba" class="inline-flex items-center justify-center gap-2 bg-zinc-50 text-zinc-900 border border-zinc-200 px-6 py-4 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-zinc-100 transition-all w-full sm:w-auto">
                         Kona-ba Eskola
                     </a>
-                </div>
+                </div> {% endcomment %}
             </div>
 
-            <!-- Visual Gedung / Ilustrasi (Kanan) -->
             <div class="lg:col-span-5 relative w-full aspect-video lg:aspect-square rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200 shadow-sm">
-                <!-- Fallback jika gambar belum ada, menggunakan placeholder abu-abu minimalis -->
                 <div class="absolute inset-0 bg-zinc-900/5 z-10"></div>
                 <img src="{% static 'img/Logo_ESGP.jpeg' %}" alt="ESGP 1912" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
                 <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm border border-zinc-100 p-4 rounded-xl z-20">
@@ -48,27 +44,83 @@
     </div>
 </section>
 
-<section class="bg-zinc-50 py-8 border-b border-zinc-200/60">
+<!-- 2. CARD ESTATÍSTIKA PORTAL (Estudante, Profesóres, Departamentu) -->
+<section class="bg-zinc-50 py-12 border-b border-zinc-200/60">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        
-        <div class="max-w-xl mx-auto grid grid-cols-2 gap-4 bg-white border border-zinc-200/80 p-5 rounded-2xl shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            <div class="flex flex-col items-center justify-center text-center border-r border-zinc-100/80 px-2">
-                <h3 class="text-2xl font-black text-zinc-900 tracking-tight leading-none">{{ total_estudante |default:"0" }}</h3>
-                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mt-2">Estudante Ativu</p>
+            <!-- Card Total Estudante -->
+            <div class="flex items-center gap-5 bg-white border border-zinc-200/80 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                <div class="w-12 h-12 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center text-blue-600 shadow-sm">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                </div>
+                <div class="flex flex-col">
+                    <h3 class="text-3xl font-black text-zinc-900 tracking-tight leading-none">{{ total_estudante|default:"0" }}</h3>
+                    <p class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mt-2">Total Estudante Ativu</p>
+                </div>
             </div>
             
-            <div class="flex flex-col items-center justify-center text-center px-2">
-                <h3 class="text-2xl font-black text-zinc-900 tracking-tight leading-none">{{ total_professores |default:"0" }}</h3>
-                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mt-2">Profesóres</p>
+            <!-- Card Total Profesóres -->
+            <div class="flex items-center gap-5 bg-white border border-zinc-200/80 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                <div class="w-12 h-12 bg-indigo-50 border border-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 shadow-sm">
+                    <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                </div>
+                <div class="flex flex-col">
+                    <h3 class="text-3xl font-black text-zinc-900 tracking-tight leading-none">{{ total_professores|default:"0" }}</h3>
+                    <p class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mt-2">Total Profesóres</p>
+                </div>
+            </div>
+
+            <!-- Card Total Departamentu -->
+            <div class="flex items-center gap-5 bg-white border border-zinc-200/80 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                <div class="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 shadow-sm">
+                    <i data-lucide="layers" class="w-5 h-5"></i>
+                </div>
+                <div class="flex flex-col">
+                    <h3 class="text-3xl font-black text-zinc-900 tracking-tight leading-none">{{ total_departamentu|default:"0" }}</h3>
+                    <p class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mt-2">Total Departamentu</p>
+                </div>
             </div>
 
         </div>
     </div>
 </section>
 
-<!-- 3. KORIDOR PILAR (KEUNGGULAN DAN LAYANAN) -->
-<section class="py-20 bg-white">
+<section id="vizaun-misaun" class="py-20 bg-zinc-50 border-t border-zinc-200/60 scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            
+            <div class="bg-white border border-zinc-200/60 p-8 rounded-2xl shadow-sm hover:border-blue-300 transition-all duration-200">
+                <div class="w-12 h-12 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 shadow-sm">
+                    <i data-lucide="eye" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-black text-lg uppercase tracking-wider text-zinc-900 mb-4">
+                    {{ vizaun.titulu|default:"Ami-nia Vizaun" }}
+                </h3>
+                <p class="text-zinc-500 text-sm font-medium leading-relaxed whitespace-pre-line">
+                    {{ vizaun.deskrisaun|default:"Konteudu vizaun seidauk iha." }}
+                </p>
+            </div>
+
+            <div class="bg-white border border-zinc-200/60 p-8 rounded-2xl shadow-sm hover:border-blue-300 transition-all duration-200">
+                <div class="w-12 h-12 bg-indigo-50 border border-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-6 shadow-sm">
+                    <i data-lucide="target" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-black text-lg uppercase tracking-wider text-zinc-900 mb-4">
+                    {{ misaun.titulu|default:"Ami-nia Misaun" }}
+                </h3>
+                
+                <div class="text-zinc-500 text-sm font-medium leading-relaxed whitespace-pre-line">
+                    {{ misaun.deskrisaun|default:"Konteudu misaun seidauk iha." }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- 3. SEKSIUN KONA-BA AMI & PILAR PRINSIPAL -->
+<section id="kona-ba" class="py-20 bg-white scroll-mt-20">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="text-center max-w-xl mx-auto mb-16">
             <h2 class="text-xs font-extrabold text-blue-600 uppercase tracking-widest mb-3">Pilar Prinsipal</h2>
@@ -76,7 +128,6 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
             <div class="bg-zinc-50/50 border border-zinc-200/60 p-8 rounded-2xl hover:border-zinc-300 transition-all">
                 <div class="w-10 h-10 bg-white border border-zinc-200 rounded-xl flex items-center justify-center text-zinc-900 mb-6 shadow-sm">
                     <i data-lucide="book-open" class="w-4 h-4 text-blue-600"></i>
@@ -86,7 +137,7 @@
                     Implementasaun kurríkulu nasionál Timor-Leste nian ne'ebé integradu, hodi foka ba Siénsia Naturais, Teknolojia, no Humanidades.
                 </p>
             </div>
-            <!-- Card 2 -->
+            
             <div class="bg-zinc-50/50 border border-zinc-200/60 p-8 rounded-2xl hover:border-zinc-300 transition-all">
                 <div class="w-10 h-10 bg-white border border-zinc-200 rounded-xl flex items-center justify-center text-zinc-900 mb-6 shadow-sm">
                     <i data-lucide="compass" class="w-4 h-4 text-blue-600"></i>
@@ -96,7 +147,7 @@
                     Forma estudante sira-nia moral, étika, no patriotizmu hodi sai lideransa ne'ebé responsavel iha futuru oin mai.
                 </p>
             </div>
-            <!-- Card 3 -->
+            
             <div class="bg-zinc-50/50 border border-zinc-200/60 p-8 rounded-2xl hover:border-zinc-300 transition-all">
                 <div class="w-10 h-10 bg-white border border-zinc-200 rounded-xl flex items-center justify-center text-zinc-900 mb-6 shadow-sm">
                     <i data-lucide="database" class="w-4 h-4 text-blue-600"></i>
@@ -110,59 +161,4 @@
     </div>
 </section>
 
-<!-- 4. BERITA DAN INFORMASI TERBARU -->
-<section class="py-20 bg-zinc-50 border-t border-b border-zinc-200/60">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
-            <div>
-                <h2 class="text-xs font-extrabold text-blue-600 uppercase tracking-widest mb-3">Média Informasaun</h2>
-                <p class="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight">Avizu no Notísia Foun</p>
-            </div>
-            <a href="#" class="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 uppercase tracking-wider group">
-                Haree Notísia Hotu <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-hover:translate-x-0.5"></i>
-            </a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Berita 1 -->
-            <article class="bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-sm flex flex-col">
-                <div class="h-48 bg-zinc-100 border-b border-zinc-100 flex items-center justify-center">
-                    <i data-lucide="image" class="w-8 h-8 text-zinc-300"></i>
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <span class="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">Inskrisaun</span>
-                    <h4 class="font-bold text-sm text-zinc-900 mt-2 mb-3 hover:text-blue-600 cursor-pointer">Rejistrasaun Estudante Foun Tinan Leten 2026</h4>
-                    <p class="text-zinc-400 text-xs font-medium mb-6 flex-1 line-clamp-2">Informasaun kompletu kona-ba rekesitus no kalendáriu inskrisaun ba estudante foun sira.</p>
-                    <span class="text-[10px] font-medium text-zinc-400">31 Maiu 2026</span>
-                </div>
-            </article>
-
-            <!-- Berita 2 -->
-            <article class="bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-sm flex flex-col">
-                <div class="h-48 bg-zinc-100 border-b border-zinc-100 flex items-center justify-center">
-                    <i data-lucide="image" class="w-8 h-8 text-zinc-300"></i>
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <span class="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">Ezame</span>
-                    <h4 class="font-bold text-sm text-zinc-900 mt-2 mb-3 hover:text-blue-600 cursor-pointer">Kalendáriu Ezame Nasionál ba Klase 12</h4>
-                    <p class="text-zinc-400 text-xs font-medium mb-6 flex-1 line-clamp-2">Diresaun eskola fó sai ona oráriu ofisiál ba preparasaun ezame nasionál finál.</p>
-                    <span class="text-[10px] font-medium text-zinc-400">25 Maiu 2026</span>
-                </div>
-            </article>
-
-            <!-- Berita 3 -->
-            <article class="bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-sm flex flex-col">
-                <div class="h-48 bg-zinc-100 border-b border-zinc-100 flex items-center justify-center">
-                    <i data-lucide="image" class="w-8 h-8 text-zinc-300"></i>
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <span class="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">Eventu</span>
-                    <h4 class="font-bold text-sm text-zinc-900 mt-2 mb-3 hover:text-blue-600 cursor-pointer">Komemorasaun Loron Eskola Dom Boaventura</h4>
-                    <p class="text-zinc-400 text-xs font-medium mb-6 flex-1 line-clamp-2">Atividade desportu no kultura hodi hametin fali lasu amizade entre estudante hotu.</p>
-                    <span class="text-[10px] font-medium text-zinc-400">12 Maiu 2026</span>
-                </div>
-            </article>
-        </div>
-    </div>
-</section>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Estudante, Professor
-from apps.academic.models import Klase
+from apps.academic.models import Klase, MisaunVizaun
 from django.core.paginator import Paginator
 from django.db.models import Q 
 from django.contrib.auth import authenticate, login, logout
@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from .forms import UserCreateForm
 from django.core.paginator import Paginator as DjangoPaginator
 from django.contrib.auth.models import Group
+
 
 
 def login_view(request):
@@ -39,10 +40,15 @@ def logout_view(request):
 def index_view(request):
     total_estudante = Estudante.objects.count()
     total_professores = Professor.objects.count()
+    vizaun = MisaunVizaun.objects.filter(id=1).first()
+    misaun = MisaunVizaun.objects.filter(id=2).first()
 
     context = {
          'total_estudante': total_estudante,
          'total_professores': total_professores,
+         'vizaun': vizaun,
+         'misaun': misaun,
+         
     }
 
     return render(request, 'home_portal.html', context)
