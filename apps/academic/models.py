@@ -39,4 +39,15 @@ class MisaunVizaun(models.Model):
 
     def __str__(self):
             return self.titulu
+    
+class IstoriaEskola(models.Model):
+    deskrisaun = models.TextField(verbose_name="Deskrisaun Istória Badak")
+    organograma = models.ImageField(upload_to='organograma/', null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Istória Eskola"
+
+    def __str__(self):
+        return f"Istória Eskola (Last updated: {self.updated_at.strftime('%d/%m/%Y')})"
         

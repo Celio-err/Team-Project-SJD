@@ -1,0 +1,138 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block title %}Jestaun Informasaun Eskola | Dashboard{% endblock %}
+
+{% block dashboard_content %}
+<div class="space-y-8">
+    
+    <!-- HEADER DASHBOARD -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between border-b border-zinc-200/80 pb-6 gap-4">
+        <div>
+            <h1 class="text-2xl font-black text-zinc-900 tracking-tight">Kona-ba Eskola</h1>
+            <p class="text-xs font-medium text-zinc-400 mt-1">Jere informasaun istória badak no upload dokumentu struktura organograma nian.</p>
+        </div>
+        {% if user.is_superuser %}
+        <div class="flex items-center gap-3">
+            <button onclick="toggleModal('modal-istoria')" class="inline-flex items-center gap-2 bg-zinc-900 text-white px-4 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-zinc-800 transition-all shadow-sm">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Edita Istória
+            </button>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- MAIN GRID CONTENT (ISTÓRIA VS ORGANOGRAMA) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- SEISAUN LEF: ISTÓRIA BADAK (2 COLUMNS) -->
+        <div class="lg:col-span-2 space-y-6">
+            <div class="bg-white border border-zinc-200/60 p-6 sm:p-8 rounded-2xl shadow-sm space-y-6">
+                <div class="flex items-center gap-3 text-blue-600">
+                    <i data-lucide="history" class="w-5 h-5"></i>
+                    <h3 class="text-xs font-extrabold uppercase tracking-widest">História Breve (Istória Badak)</h3>
+                </div>
+                <!-- DADUS DINÁMIKU HUSI DATABASE -->
+                <div class="prose prose-sm max-w-none text-zinc-500 font-medium leading-relaxed whitespace-pre-line">
+                    {{ istoria.deskrisaun }}
+                </div>
+            </div>
+        </div>
+
+        <!-- SEISAUN RIGHT: UPLOAD ORGANOGRAMA (1 COLUMN) -->
+        <div class="space-y-4">
+            <div class="flex items-center gap-2.5 text-zinc-800 px-1">
+                <i data-lucide="network" class="w-4 h-4 text-emerald-600"></i>
+                <h3 class="text-xs font-black uppercase tracking-wider">Organograma Eskola</h3>
+            </div>
+            
+            <div class="bg-white border border-zinc-200/60 p-6 rounded-2xl shadow-sm space-y-6">
+                
+                <!-- PREVIEW IMAGEN AKTUAL -->
+                <div class="space-y-2">
+                    <span class="text-[10px] font-extrabold text-zinc-400 uppercase tracking-wider block">Foto Aktual</span>
+                    <div class="border border-zinc-200 rounded-xl overflow-hidden aspect-[4/3] bg-zinc-50 flex items-center justify-center relative group">
+                        {% if istoria.organograma %}
+                            <img src="{{ istoria.organograma.url }}" alt="Organograma ESGP" class="w-full h-full object-cover">
+                        {% else %}
+                            <div class="text-center p-4">
+                                <i data-lucide="image-off" class="w-8 h-8 text-zinc-300 mx-auto mb-2"></i>
+                                <p class="text-[11px] text-zinc-400 font-medium">Organograma seidauk uza.</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- FORMULÁRIU UPLOAD IMAGEN FOUN -->
+                {% if user.is_superuser %}
+                <form method="POST" action="" enctype="multipart/form-data" class="space-y-4 pt-2 border-t border-zinc-100">
+                    {% csrf_token %}
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-extrabold text-zinc-400 uppercase tracking-wider block">Upload Foto Foun</label>
+                        <label class="flex flex-col items-center justify-center border-2 border-dashed border-zinc-200 hover:border-emerald-500 bg-zinc-50/50 hover:bg-white p-4 rounded-xl cursor-pointer transition-all group">
+                            <i data-lucide="upload-cloud" class="w-5 h-5 text-zinc-400 group-hover:text-emerald-600 transition-colors mb-1"></i>
+                            <span class="text-[11px] font-bold text-zinc-600 group-hover:text-emerald-700">Hili Failu Image</span>
+                            <span class="text-[9px] text-zinc-400 mt-0.5">PNG, JPG (Max. 2MB)</span>
+                            <input type="file" name="organograma_file" accept="image/*" class="hidden" onchange="this.form.submit()">
+                        </label>
+                    </div>
+                </form>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= MODAL EDIT ISTÓRIA ================= -->
+<div id="modal-istoria" class="fixed inset-0 bg-zinc-950/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-zinc-200 rounded-2xl w-full max-w-lg shadow-xl overflow-hidden transform transition-all duration-300 scale-95 opacity-0 modal-content">
+        <div class="p-6 border-b border-zinc-100 flex items-center justify-between">
+            <h3 class="font-black text-sm text-zinc-900 uppercase tracking-wider">Edita Istória Badak</h3>
+            <button onclick="toggleModal('modal-istoria')" class="text-zinc-400 hover:text-zinc-600 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <form method="POST" action="" class="p-6 space-y-4">
+            {% csrf_token %}
+            <div class="space-y-1.5">
+                <label class="text-[10px] font-extrabold text-zinc-400 uppercase tracking-wider">Deskrisaun Istória nian</label>
+                <textarea name="istoria_deskrisaun" rows="8" class="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-xs font-medium text-zinc-800 focus:outline-none focus:border-blue-500 focus:bg-white transition-all resize-none" placeholder="Hakerek istória badak eskola nian...">{{ istoria.deskrisaun }}</textarea>
+            </div>
+            
+            <div class="flex items-center justify-end gap-3 pt-2">
+                <button type="button" onclick="toggleModal('modal-istoria')" class="bg-zinc-100 text-zinc-600 px-4 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-zinc-200 transition-all">
+                    Kansela
+                </button>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-blue-700 transition-all shadow-md">
+                    Salva Alterasaun
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function toggleModal(modalId) {
+        const modal = document.getElementById(modalId);
+        const content = modal.querySelector('.modal-content');
+        
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        } else {
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 200);
+        }
+    }
+</script>
+{% endblock %}

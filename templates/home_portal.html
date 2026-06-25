@@ -122,41 +122,52 @@
 <!-- 3. SEKSIUN KONA-BA AMI & PILAR PRINSIPAL -->
 <section id="kona-ba" class="py-20 bg-white scroll-mt-20">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        
         <div class="text-center max-w-xl mx-auto mb-16">
-            <h2 class="text-xs font-extrabold text-blue-600 uppercase tracking-widest mb-3">Pilar Prinsipal</h2>
-            <p class="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight">Kona-ba Ami-nia Instituisaun</p>
+            <h2 class="text-xs font-extrabold text-blue-600 uppercase tracking-widest mb-3">Instituisaun</h2>
+            <p class="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight">Kona-ba Ami-nia Eskola</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-zinc-50/50 border border-zinc-200/60 p-8 rounded-2xl hover:border-zinc-300 transition-all">
-                <div class="w-10 h-10 bg-white border border-zinc-200 rounded-xl flex items-center justify-center text-zinc-900 mb-6 shadow-sm">
-                    <i data-lucide="book-open" class="w-4 h-4 text-blue-600"></i>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <div class="lg:col-span-7 space-y-6">
+                <div class="flex items-center gap-3 text-blue-600">
+                    <div class="w-10 h-10 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center shadow-sm">
+                        <i data-lucide="history" class="w-4 h-4"></i>
+                    </div>
+                    <h3 class="text-xs font-extrabold uppercase tracking-widest text-zinc-900">História Breve (Istória Badak)</h3>
                 </div>
-                <h3 class="font-bold text-sm text-zinc-900 uppercase tracking-wider mb-2">Kurríkulu Nasionál</h3>
-                <p class="text-zinc-500 text-xs font-medium leading-relaxed">
-                    Implementasaun kurríkulu nasionál Timor-Leste nian ne'ebé integradu, hodi foka ba Siénsia Naturais, Teknolojia, no Humanidades.
-                </p>
+                
+                <div class="prose prose-zinc max-w-none text-zinc-500 font-medium text-sm leading-relaxed whitespace-pre-line bg-zinc-50/50 border border-zinc-200/60 p-6 sm:p-8 rounded-2xl">
+                    {{ istoria.deskrisaun|default:"Konteúdu istória badak eskola nian seidauk karga iha sistema." }}
+                </div>
             </div>
             
-            <div class="bg-zinc-50/50 border border-zinc-200/60 p-8 rounded-2xl hover:border-zinc-300 transition-all">
-                <div class="w-10 h-10 bg-white border border-zinc-200 rounded-xl flex items-center justify-center text-zinc-900 mb-6 shadow-sm">
-                    <i data-lucide="compass" class="w-4 h-4 text-blue-600"></i>
+            <div class="lg:col-span-5 space-y-4">
+                <div class="flex items-center gap-3 text-emerald-600">
+                    <div class="w-10 h-10 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center justify-center shadow-sm">
+                        <i data-lucide="network" class="w-4 h-4"></i>
+                    </div>
+                    <h3 class="text-xs font-extrabold uppercase tracking-widest text-zinc-900">Estrutura Organograma</h3>
                 </div>
-                <h3 class="font-bold text-sm text-zinc-900 uppercase tracking-wider mb-2">Vizaun & Karakter</h3>
-                <p class="text-zinc-500 text-xs font-medium leading-relaxed">
-                    Forma estudante sira-nia moral, étika, no patriotizmu hodi sai lideransa ne'ebé responsavel iha futuru oin mai.
-                </p>
-            </div>
-            
-            <div class="bg-zinc-50/50 border border-zinc-200/60 p-8 rounded-2xl hover:border-zinc-300 transition-all">
-                <div class="w-10 h-10 bg-white border border-zinc-200 rounded-xl flex items-center justify-center text-zinc-900 mb-6 shadow-sm">
-                    <i data-lucide="database" class="w-4 h-4 text-blue-600"></i>
+                
+                <div class="bg-zinc-50/50 border border-zinc-200/60 p-4 rounded-2xl shadow-sm">
+                    <div class="border border-zinc-200/80 rounded-xl overflow-hidden bg-white aspect-[4/3] flex items-center justify-center relative group">
+                        {% if istoria.organograma %}
+                            <img src="{{ istoria.organograma.url }}" alt="Organograma ESGP 1912 Same" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                            <a href="{{ istoria.organograma.url }}" target="_blank" class="absolute top-3 right-3 bg-white/95 backdrop-blur-sm border border-zinc-200 text-zinc-700 p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-sm hover:text-blue-600">
+                                <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+                            </a>
+                        {% else %}
+                            <div class="text-center p-6">
+                                <i data-lucide="image-off" class="w-8 h-8 text-zinc-300 mx-auto mb-2"></i>
+                                <p class="text-[11px] text-zinc-400 font-bold uppercase tracking-wider">Organograma Seidauk Iha</p>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
-                <h3 class="font-bold text-sm text-zinc-900 uppercase tracking-wider mb-2">Administrasaun Modernu</h3>
-                <p class="text-zinc-500 text-xs font-medium leading-relaxed">
-                    Sistem Jestaun Akadómiku dijitál ne'ebé fó fasilidade ba profesór sira hodi jere nota no relatóriu finál finalista ho transparente.
-                </p>
             </div>
+
         </div>
     </div>
 </section>

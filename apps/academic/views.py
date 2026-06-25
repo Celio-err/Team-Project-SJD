@@ -2,7 +2,7 @@ from urllib import request
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import models
-from apps.academic.models import Disiplina, Klase, AlokasiMateria
+from apps.academic.models import Disiplina, Klase, AlokasiMateria, IstoriaEskola
 from apps.users.models import Professor, Estudante
 from django.contrib import messages
 
@@ -258,3 +258,40 @@ def vizaun_misaun(request):
         'misaun': misaun,
     }
     return render(request, 'academic/misaun_vizaun.html', context)
+
+#views kona-ba eskola
+@login_required
+def konaba(request):
+    istoria = IstoriaEskola.objects.first()
+    if not istoria:
+        istoria = IstoriaEskola.objects.create(deskrisaun="Konteúdu istória seidauk iha.")
+
+    if request.method == 'POST':
+        if not request.user.is_superuser:
+            messages.error(request, "Ita la iha autorizasaun!")
+            return redirect('kona-ba')
+
+        # 1. SE SUBMETE HUSI UPLOAD FOTO ORGANOGRAMA
+        if 'organograma_file' in request.FILES:
+            istoria.organograma = request.FILES['organograma_file']
+            istoria.save()
+            messages.success(request, "Foto Organograma eskola nian konsege karga tiha ona!")
+            return redirect('kona-ba')
+
+        # 2. SE SUBMETE HUSI MODAL EDITA ISTÓRIA
+        elif 'istoria_deskrisaun' in request.POST:
+            deskrisaun_foun = request.POST.get('istoria_deskrisaun').strip()
+            
+            if deskrisaun_foun:
+                istoria.deskrisaun = deskrisaun_foun
+                istoria.save()
+                messages.success(request, "Istória badak eskola nian konsege aktualiza!")
+            else:
+                messages.error(request, "Deskrisaun la bele mamuk!")
+                
+            return redirect('kona-ba')
+
+    context = {
+        'istoria': istoria,
+    }
+    return render(request, 'academic/kona_ba.html', context)

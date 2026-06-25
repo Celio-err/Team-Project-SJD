@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Estudante, Professor
-from apps.academic.models import Klase, MisaunVizaun
+from apps.academic.models import Klase, MisaunVizaun, IstoriaEskola
 from django.core.paginator import Paginator
 from django.db.models import Q 
 from django.contrib.auth import authenticate, login, logout
@@ -42,12 +42,16 @@ def index_view(request):
     total_professores = Professor.objects.count()
     vizaun = MisaunVizaun.objects.filter(id=1).first()
     misaun = MisaunVizaun.objects.filter(id=2).first()
+    istoria = IstoriaEskola.objects.first()
+    
 
     context = {
          'total_estudante': total_estudante,
          'total_professores': total_professores,
          'vizaun': vizaun,
          'misaun': misaun,
+         'istoria': istoria,
+        
          
     }
 
