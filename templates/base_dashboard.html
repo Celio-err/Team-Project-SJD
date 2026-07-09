@@ -73,7 +73,7 @@
                         <i data-lucide="columns" class="w-4 h-4 shrink-0"></i> Klase
                     </a>
                     
-                    <a href="{% url 'lista_professor' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'lista_professor' or request.resolver_match.url_name == 'professor_create' or request.resolver_match.url_name == 'edit_professor' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
+                    <a href="{% url 'professor_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'professor_list' or request.resolver_match.url_name == 'professor_create' or request.resolver_match.url_name == 'edit_professor' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
                         <i data-lucide="award" class="w-4 h-4 shrink-0"></i> Professores
                     </a>
                     
@@ -110,7 +110,7 @@
                         <i data-lucide="target" class="w-4 h-4 shrink-0"></i> Vizaun no Misaun
                     </a>
                     
-                    <a href="{% url 'kona-ba' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'kona_ba_eskola' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
+                    <a href="{% url 'kona-ba' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'kona-ba' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
                         <i data-lucide="school" class="w-4 h-4 shrink-0"></i> Kona-ba Eskola
                     </a>
                 </div>
@@ -126,6 +126,15 @@
                 </div>
             </div>
             {% endif %}
+
+            <div>
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Konta</p>
+                <div class="space-y-0.5">
+                    <a href="{% url 'perfil' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors {% if request.resolver_match.url_name == 'perfil' %} bg-zinc-100 text-zinc-900 font-semibold text-indigo-600 {% else %} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 {% endif %}">
+                        <i data-lucide="user" class="w-4 h-4 shrink-0"></i> Perfil Utilizadór
+                    </a>
+                </div>
+            </div>
 
         </div>
 

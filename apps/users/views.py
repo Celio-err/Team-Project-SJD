@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from .forms import UserCreateForm
 from django.core.paginator import Paginator as DjangoPaginator
 from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -394,5 +395,38 @@ def user_delete_view(request, pk):
     messages.success(request, "Konta refere hamoos ona!")
     return redirect('user_list')
     
+@login_required
+def perfil_view(request):
+    user = request.user
+    # Mengambil profil professor yang melekat pada user login (jika ada)
+    professor_profile = getattr(user, 'professor_profile', None)
 
+    if request.method == 'POST':
+        if 'update_profile' in request.POST:
+            # 1. Ambil data dari form input template
+            full_name = request.POST.get('full_name')
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            nu_telemovel = request.POST.get('nu_telemovel') # Field tambahan
+
+            # 2. Update data pada model Auth User bawaan Django
+            user.username = username
+            user.email = email
+            
+            # Memisahkan full_name menjadi first_name & last_name untuk Django User (opsional)
+            names = full_name.split(' ', 1)
+            user.first_name = names[0]
+            user.last_name = names[1] if len(names) > 1 else ''
+            user.save()
+
+            # 3. SINKRONISASI: Update data pada model Professor
+            if professor_profile:
+                professor_profile.naran_kompletu = full_name
+                professor_profile.nu_telemovel = nu_telemovel
+                professor_profile.save()
+
+            messages.success(request, "Dadus perfil atualiza ona ho susesu!")
+            return redirect('perfil') # sesuaikan dengan nama name url Anda
+
+    return render(request, 'users/perfil.html', {'user': user})
 
