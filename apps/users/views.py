@@ -12,6 +12,7 @@ from .forms import UserCreateForm
 from django.core.paginator import Paginator as DjangoPaginator
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
 
 
 
@@ -425,8 +426,29 @@ def perfil_view(request):
                 professor_profile.nu_telemovel = nu_telemovel
                 professor_profile.save()
 
-            messages.success(request, "Dadus perfil atualiza ona ho susesu!")
-            return redirect('perfil') # sesuaikan dengan nama name url Anda
+            messages.success(request, "Dadus perfil atualiza ho susesu!")
+            return redirect('perfil') 
+        
+        elif 'change_password' in request.POST:
+            password_tuan = request.POST.get('password_tuan')
+            password_foun = request.POST.get('password_foun')
+            konfirma_password = request.POST.get('konfirma_password')
+
+            if not user.check_password(password_tuan):
+                messages.error(request, "Password Atual la loos!")
+                return redirect('perfil')
+
+            if konfirma_password != password_foun:
+                messages.error(request, "Password konfirmasaun la hanesan")
+                return redirect('perfil')
+            
+            user.set_password(password_foun)
+            user.save()
+
+            update_session_auth_hash(request, user)
+            messages.success(request, "Password Atualiza ho susesu!")
+            return redirect('perfil')
+
 
     return render(request, 'users/perfil.html', {'user': user})
 
