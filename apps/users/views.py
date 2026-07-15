@@ -187,13 +187,24 @@ def estudante_create_view(request, pk=None):
     })
 
 def hamoos_estudante(request, pk):
+
+    if not request.user.is_superuser:
+        messages.error(request, "Ita-boot la iha permisaun ba asesu asaun refere!")
+        return redirect('estudante_list')
+    
     estudante = get_object_or_404(Estudante, id=pk)
     if request.method == 'POST':
         estudante.delete()
         return redirect('estudante_list')
     return render(request, 'users/konfirm_delete_est.html', {'estudante': estudante})
 
+@login_required
 def edit_estudante(request, pk):
+    #grouping ba asaun edit estudante(so superuser mak bele asesu)
+    if not request.user.is_superuser:
+        messages.error(request, "Ita-boot la iha autorizasaun ba asaun refere!")
+        return redirect ('estudante_list')
+    
     estudante = get_object_or_404(Estudante, id=pk)
     klases = Klase.objects.all()            
     if request.method == 'POST':
@@ -213,6 +224,9 @@ def edit_estudante(request, pk):
 
 #views professor
 def professor_create_view(request):
+    if not request.user.is_superuser:
+        messages.error(request, "Ita-boot la iha permisaun ba asesu asaun refere!")
+        return redirect('professor_list')
     if request.method == 'POST':
         nis = request.POST.get('nis')
         id_funcionario = request.POST.get('id_funcionario')

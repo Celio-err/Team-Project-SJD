@@ -12,13 +12,14 @@
             <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">Lista Disiplina</h2>
             <p class="text-slate-500 mt-3 font-medium text-base md:text-lg">Manajementu kurikulu no materia ensinu.</p>
         </div>
-        
+        {% if user.is_superuser%}
         <a href="{% url 'disiplina_create' %}" class="group flex items-center justify-center gap-3 px-5 py-3.5 md:px-7 md:py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-2xl shadow-slate-200 active:scale-95 w-full sm:w-auto shrink-0">
             <div class="p-1 bg-white/10 rounded-lg group-hover:rotate-90 transition-transform">
                 <i data-lucide="plus" class="w-4 h-4"></i>
             </div>
             Aumenta Disiplina
         </a>
+        {% endif %}
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-10">
@@ -40,7 +41,9 @@
                     <th class="px-6 py-5 md:px-8 md:py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] w-[20%]">Kodigu</th>
                     <th class="px-6 py-5 md:px-8 md:py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] w-[40%]">Disiplina</th>
                     <th class="px-6 py-5 md:px-8 md:py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] w-[25%]">Departamentu/Kategoria</th>
+                    {% if user.is_superuser %}
                     <th class="px-6 py-5 md:px-8 md:py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right w-[15%]">Jestaun</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-50">
@@ -75,6 +78,7 @@
                         {% endif %}
                     </td>
                     <td class="px-6 py-4 md:px-8 md:py-6 text-right whitespace-nowrap">
+                    {% if user.is_superuser %}
                         <div class="flex justify-end gap-2 md:gap-3 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <a href="{% url 'edit_disiplina' d.id %}" class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 hover:border-indigo-200 rounded-xl shadow-sm transition-all shrink-0">
                                 <i data-lucide="edit-3" class="w-4 h-4"></i>
@@ -83,6 +87,7 @@
                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                             </a>
                         </div>
+                        {% endif %}
                     </td>
                 </tr>
                 {% empty %}

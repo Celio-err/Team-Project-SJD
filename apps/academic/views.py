@@ -50,6 +50,10 @@ def disiplina_list_view(request):
 
 def hamoos_disiplina(request, pk):
     disiplina = get_object_or_404(Disiplina, id=pk) #Ambil data disiplina berdasarkan ID, jika tidak ada muncul 404
+    if not request.is_superuser:
+        messages.error(request, 'Itaboot la iha permisaun ba asesu asaun refere')
+        return redirect('disiplina_list')
+
     if request.method == 'POST':
         disiplina.delete()
         return redirect('disiplina_list')
@@ -81,6 +85,9 @@ def edit_disiplina(request, pk):
 
 # 2. View Utama Alokasaun (Modu Tabel / Admin Power)
 def alokasaun_create(request):
+    if not request.user.is_superuser:
+        messages.error(request, "Ita-boot la iha permisaun ba asaun refere!")
+        return redirect('alokasaun_list')
     if request.method == 'POST':
         disiplina_id = request.POST.get('disiplina')
         klase_id = request.POST.get('klase')
@@ -156,6 +163,9 @@ def klase_list_view(request):
     return render(request, 'academic/lista_klase.html', {'klases': klases})
 
 def klase_create(request):
+    if not request.user.is_superuser:
+        messages.error(request, "Ita-boot la iha permisaun ba sasun refere!")
+        return redirect('list_klase')
     if request.method == 'POST':
         nivel = request.POST.get('nivel')
         departamentu = request.POST.get('departamentu')

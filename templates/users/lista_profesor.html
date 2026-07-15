@@ -12,11 +12,12 @@
             <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">Dadus Professores</h2>
             <p class="text-slate-500 mt-3 font-medium text-base md:text-lg">Jere no kontrola informasaun hotu kona-ba Professores.</p>
         </div>
-        
+        {% if user.is_superuser %}
         <a href="{% url 'professor_create' %}" class="group flex items-center justify-center gap-3 px-6 py-3.5 md:px-8 md:py-4 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase tracking-[0.2em] hover:bg-indigo-600 transition-all shadow-2xl shadow-slate-200 active:scale-95 w-full sm:w-auto shrink-0">
             <svg class="w-5 h-5 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
             Aumenta Professor
         </a>
+        {% endif %}
     </div>
 
     <div class="w-full bg-white rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden">
@@ -31,7 +32,9 @@
                         <th class="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Status</th>
                         <th class="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Cargo</th>    
                         <th class="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Kontaktu</th>
+                        {% if user.is_superuser %}
                         <th class="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right w-[90px]">Jestaun</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100/70">
@@ -89,6 +92,7 @@
                         </td>
                         
                         <td class="px-4 py-3.5 text-right align-middle whitespace-nowrap">
+                        {% if user.is_superuser %}
                             <div class="flex justify-end gap-1.5">
                                 <a href="{% url 'edit_professor' p.id %}" class="w-8 h-8 flex items-center justify-center bg-white border border-slate-200 text-slate-400 hover:text-indigo-600 hover:border-indigo-200 rounded-lg shadow-sm transition-all" title="Edit">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
@@ -97,6 +101,7 @@
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                 </a>
                             </div>
+                            {% endif %}
                         </td>
                     </tr>
                     {% empty %}

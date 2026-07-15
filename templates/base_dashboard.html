@@ -83,7 +83,6 @@
                 </div>
             </div>
 
-            {% if user.is_superuser or user.professor_profile.cargo == 'Diretor/a da Escola' %}
             <div>
                 <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Manejamentu</p>
                 <div class="space-y-0.5">
@@ -92,8 +91,7 @@
                     </a>
                 </div>
             </div>
-            {% endif %}
-
+            {% if user.is_superuser or user.professor_profile.cargo == 'Diretor/a da Escola' %}
             <div>
                 <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Relatoriu</p>
                 <div class="space-y-0.5">
@@ -102,7 +100,7 @@
                     </a>
                 </div>
             </div>
-
+           
             <div>
                 <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Informasaun Eskola</p>
                 <div class="space-y-0.5">
@@ -115,6 +113,7 @@
                     </a>
                 </div>
             </div>
+            {% endif %}
 
             {% if user.is_superuser %}
             <div>
