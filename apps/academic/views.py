@@ -233,7 +233,7 @@ def estudante_kada_klase(request, klase_id):
     }
     return render(request, 'academic/lista_prezensa.html', context)
 
-#vies ba vizaun no misaun
+#views ba vizaun no misaun
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import MisaunVizaun
@@ -251,7 +251,7 @@ def vizaun_misaun(request):
     )
 
     if request.method == "POST":
-        if request.user.is_superuser:
+        if request.user.professor_profile.cargo == 'Diretor/a da Escola':
             # Simu títulu no deskrisaun foun husi modal (Maski títulu troka, ID nafatin 1 ho 2)
             vizaun.titulu = request.POST.get('vizaun_titulu')
             vizaun.deskrisaun = request.POST.get('vizaun_deskrisaun')
@@ -277,7 +277,7 @@ def konaba(request):
         istoria = IstoriaEskola.objects.create(deskrisaun="Konteúdu istória seidauk iha.")
 
     if request.method == 'POST':
-        if not request.user.is_superuser:
+        if not request.user.professor_profile.cargo == 'Diretor/a da Escola':
             messages.error(request, "Ita la iha autorizasaun!")
             return redirect('kona-ba')
 

@@ -12,7 +12,7 @@
             <h1 class="text-2xl font-black text-zinc-900 tracking-tight">Kona-ba Eskola</h1>
             <p class="text-xs font-medium text-zinc-400 mt-1">Jere informasaun istória badak no upload dokumentu struktura organograma nian.</p>
         </div>
-        {% if user.is_superuser %}
+        {% if user.professor_profile.cargo == 'Diretor/a da Escola' %}
         <div class="flex items-center gap-3">
             <button onclick="toggleModal('modal-istoria')" class="inline-flex items-center gap-2 bg-zinc-900 text-white px-4 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase hover:bg-zinc-800 transition-all shadow-sm">
                 <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Edita Istória

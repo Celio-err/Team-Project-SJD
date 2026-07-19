@@ -14,7 +14,7 @@
             </div>
         </div>
         
-        {% if user.is_superuser %}
+        {% if user.professor_profile.cargo == 'Diretor/a da Escola' %}
         <div>
             <button onclick="openModal()" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all shadow-sm active:scale-95 duration-150 cursor-pointer">
                 <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
