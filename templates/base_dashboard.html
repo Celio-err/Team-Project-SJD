@@ -91,7 +91,7 @@
                     </a>
                 </div>
             </div>
-            {% if user.is_superuser or user.professor_profile.cargo == 'Diretor/a da Escola' %}
+            {% if user.professor_profile.cargo == 'Diretor/a da Escola' %}
             <div>
                 <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 mb-1.5">Relatoriu</p>
                 <div class="space-y-0.5">
